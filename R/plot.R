@@ -17,7 +17,6 @@ W2E <-function(x)   {
 #'
 plot.network.graph <- function(beta, var.number)
 {
-  print("new")
   p <- var.number
   contemporaneous.relations <- matrix(beta[(p+1):(2*p),(p+1):(2*p)], nrow = p, ncol = p, byrow = F)
   lag.1.relations <- matrix(beta[(p+1):(2*p),1:p], nrow = p, ncol = p, byrow = F)
