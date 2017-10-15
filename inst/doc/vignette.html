@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Vignette of package pompom</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Vignette of package pompom</h1>
+
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pompom)
+<span class="kw">library</span>(reshape2)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
+<p>Set up the true model, a 2 node network with conteramporaneous and lag-1 relations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n.obs &lt;-<span class="st"> </span><span class="dv">200</span>
+p &lt;-<span class="st"> </span><span class="dv">2</span>
+noise.level &lt;-<span class="st"> </span><span class="fl">0.1</span>
+<span class="co"># phi &lt;- matrix(c(0.8, -0.3, -0.3, 0.001), nrow = 2, ncol = 2, byrow = TRUE)</span>
+psi &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rnorm</span>(n.obs,<span class="dv">0</span>,noise.level),
+             <span class="kw">rnorm</span>(n.obs,<span class="dv">0</span>, noise.level))
+
+true.beta &lt;-<span class="st">  </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.6</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="fl">0.6</span>,-<span class="fl">0.2</span>, <span class="fl">0.6</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">2</span> *<span class="st"> </span>p, <span class="dt">ncol =</span> <span class="dv">2</span> *<span class="st"> </span>p, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+true.beta</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]  0.0  0.0    0  0.0
+## [2,]  0.0  0.0    0  0.0
+## [3,]  0.6  0.0    0  0.6
+## [4,] -0.2  0.6    0  0.0</code></pre>
+<p>Plot the true beta matrix in the network form, which is also called a graph</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phi &lt;-<span class="st"> </span><span class="kw">matrix</span>(true.beta[(p<span class="dv">+1</span>):(<span class="dv">2</span>*p),<span class="dv">1</span>:p], <span class="dt">nrow =</span> p, <span class="dt">ncol =</span> p, <span class="dt">byrow =</span> F)
+alpha &lt;-<span class="st"> </span><span class="kw">matrix</span>(true.beta[(p<span class="dv">+1</span>):(<span class="dv">2</span>*p),(p<span class="dv">+1</span>):(<span class="dv">2</span>*p)], <span class="dt">nrow =</span> p, <span class="dt">ncol =</span> p, <span class="dt">byrow =</span> F)
+phi</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]  0.6  0.0
+## [2,] -0.2  0.6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    0  0.6
+## [2,]    0  0.0</code></pre>
+<p>Simulate time-series</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">time.series &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rep</span>(<span class="dv">0</span>, p *<span class="st"> </span>n.obs), <span class="dt">nrow =</span> n.obs, <span class="dt">ncol =</span> p)
+time.series[<span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">2</span>,<span class="dv">0</span>,noise.level)
+identity.matrix &lt;-<span class="st">  </span><span class="kw">diag</span>(<span class="dv">1</span>, p, p)
+
+row &lt;-<span class="st"> </span><span class="dv">2</span>
+for (row in <span class="dv">2</span>:n.obs)
+{
+  time.series[row,] &lt;-<span class="st"> </span><span class="kw">solve</span>(identity.matrix -<span class="st"> </span>alpha) %*%<span class="st">  </span>phi %*%<span class="st"> </span>time.series[row<span class="dv">-1</span>,] +<span class="st"> </span>
+<span class="st">    </span><span class="kw">solve</span>(identity.matrix -<span class="st"> </span>alpha)  %*%<span class="st"> </span>psi[row, ]
+}
+time.series &lt;-<span class="st"> </span><span class="kw">data.frame</span>(time.series)</code></pre></div>
+<p>Plot time-series</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">time.series$time &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">length</span>(time.series[,<span class="dv">1</span>]),<span class="dv">1</span>)
+time.series.long &lt;-<span class="st"> </span><span class="kw">melt</span>(time.series, <span class="dt">id=</span><span class="st">&quot;time&quot;</span>)  ## convert to long format
+
+<span class="kw">ggplot</span>(<span class="dt">data=</span>time.series.long,
+       <span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>value, <span class="dt">colour=</span>variable)) +
+<span class="st">  </span><span class="kw">geom_line</span>() +<span class="st"> </span>
+<span class="st">  </span><span class="kw">facet_wrap</span>( ~<span class="st"> </span>variable , <span class="dt">ncol =</span> <span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">strip.background =</span> <span class="kw">element_blank</span>(),
+    <span class="dt">strip.text.x =</span> <span class="kw">element_blank</span>(),
+    <span class="dt">strip.text.y =</span> <span class="kw">element_blank</span>(),
+    <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(), 
+    <span class="dt">axis.title.y =</span> <span class="kw">element_blank</span>()
+    )+
+<span class="st">  </span><span class="kw">ylim</span>(-<span class="dv">1</span>,<span class="dv">1</span>)</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAz1BMVEUAAAAAADoAAGYAOpAAZrYAv8QzMzM6AAA6ADo6AGY6OpA6kNtNTU1NTW5NTY5NbqtNjshmAABmADpmAGZmZmZmtv9uTU1uTW5uTY5ubqtuq+SOTU2OTW6OTY6OyP+QOgCQOjqQkDqQkGaQtpCQ27aQ2/+rbk2rbm6rbo6ryKur5P+2ZgC2kDq225C22/+2///Ijk3I///bkDrb/9vb///kq27k///r6+vy8vL4dm3/tmb/yI7/25D/27b/29v/5Kv//7b//8j//9v//+T///8oFlIbAAAACXBIWXMAAA7DAAAOwwHHb6hkAAALyElEQVR4nO3dC2PbthEAYNoxkjR216ad263d4naZuy7ZZtdNy8DxZsfB//9NI94AecSRFAWB5F0cSzpBkPgJBB8wpEpQJKM69AsoPQgICQJCgoCQICAkCAiJAUC1DnsZRAkp9/IICE5lBrr/0y/q8uP3Z1/8TkAdoA9nf1BAn356JX77koDaQNef/1O3oI9//cU1JgIKw6jc//l38fEvb5prT58+3ddTLyNgoA9fWCBBLQgC8i2IgEAg6oMQoE8/fUdbsV4g+Z/2g3qAoChIg4DGpwgISREQkiIgJEVASIqAkFQBQNsOakEERED6koDgFAEhKQJCUgSEpAgISREQksoK5M8j/nZ2ZsYQCchHMJ56/cqnC9I4MJAfy/j0jzcE1AXyo2HNunZ2phoRjawG1/146v23b3wrgt88fojmUkwLUmH7Ifi1bREoGk8loC6QH0+VK9unn5Ob+b0D8fKAzH6QbETNftDndl2DX9u+gXjNywOCA35tBERABERABwTi+wdS70Ert0SgeDEmawwA4lsG6qxPBiisvVQgMDhvX9kluOjUwtVPlJ/lqcbGpBak3l2zWvDdWhAf3oJkpsgWNAtQXykH1OlwDBB3xZYDxMcD9ZZCgHi9BiAerwcoEO8C8c4DW0B86UB2+SAgvm0gfTUJ1Fr+XqC4kAfiawbiqgXVcZkYiKNA7im6/oUC8doD+YXpdMY9QL4h8BCIQ0DmDgcErIqlALmX5t5vYV7fUCBuHx9U5XTCtK5MBHeUAeRHVqG5Gq03NALi04C4jjYQHwLEo4vMI6vgnFX7SnndAfK9iODRy/bbpxCojoFcP+OBeBeI87C6gwD5UQ1wvlg/kF/qBih+o7ltF71AYUdst2ncPWPtnhAG4jk7aT8uBs9Z5VyYf9zcDA4mubmpLv3BJ+f2EJOL4Fr0IOF+8c799pZ5tHkJIii754BHVuE5q2ZNcusCj1qQ7ob8ux6tLe5ap33ZxuCP2FwrEfoRNmnboWtnRbSgCMgu5nCgYN/FAnHXb0d9bgDkUx7I92RWxjxPTiCkD+oA2U2LA+IGyDeTEMjs6wRAvB4LJIKada+VE8iPrMJzVpNAJi/qDpAI7/dAfBxQUMq9EB6cY8wBFIysgnNWW1vwFlBtjz5ax09pIHDRfSoFpJ+pvEONHYDM2+4O8KcC+ScuHEjwBJDbrwmBDNoooLpTKuzdywMKX258eMnrAKhuA9VzArX6rmUAufWJTwcKN/yB2UqBzJUdgeJnXBhQnQBySxEB6Uthd2MmA3UySwCypXqAfGZlQKkAjxUTI6D+2FYfd4557GFiH3M1WmfN4KbXt4fDO6niW1BeILz6bQD17SMPqJ6ACMjuAm4VqB4KNFpjLUADUwSEpAgoR4qAkFRWIJrUmwaiSb0IEE3qRYBoUi8Qkyf1lpLK1YKuz86+HDWpt5TUYfogAgKBRk3qLSV1gP2gYZN6S0lNALp7ftm+GqRSQHAUpDF7CyIgAkoDPV6cNr9vjq/unlVVdSruPvuxOv53o2FvP/9bVT15p4AeL6rq+GpjQOKmWfpG6eHluXE6Uc3F337y7vHiRKbkhSq+LSDZNJr//3unr989OxfQ7ebnVrYeBbcpILmOqWZx26xSR5eqr1G/zO3PtEqTuqlUnG4MSNw++bUxenh5dGlailnFzO0AqLN2DQVadjx89bpBuFWNyLeg9m2ZOgI3ZKtvQeJtdaIsmg1XAGRvh510g9ZVWj/QbXWumKqjv6tVSfdB7nazmT8RbjPfbUXrB9oxCIiACEhfEhCcIiAkhQG9B4OA9gW0vi+inRdohV9EOyvQGr+Idj+r2Iq+iHY/QCv6Itq5gOTIqljjF9HupwVtoQ9SJ8jeyhOI6qzZOKAVfRFtfwt6ey7uXqiTsd2xjCRQe1LvsqMf6O7Frz9cNk5Hr0e0oPXFe94J2wfd/FGfoR+ziq0vEp20GvMRBNQH9PjD6xdqIIOAYKDbE70RIyAY6OHrK0NDQBCQ+bMGuTO0K1BBOz2H35MmIASITpilgeiEWRqITpghQGs8YbZr0AmzSUB0wgwBoj4IAdrECbPJQL2fgnd4jcMDQVGQBgGNTxEQkiIgJDUZyA77yFkb7T+vJyB5jx72efjqMjHXZ9NAetjn9kRbbReIdeJ9a9hHyFa0XaD+TtoO++izr9OBlh39QHbY5+FlwmfLLcgM+9h2REAtIDPsg/hsF8gO+/xLTaPb8lasv5MeFAREQASkLwkIThEQksKAdg36FLwRQPQpeAgQfQoeAkSfggcEfQreCCD6FDwEiD4FDwGiT8FDgLbyKXjTgeAoSIOAxqcICEkVD8RyamwdaEpdSwFi6VLJFCOgdQMlgzFzuUsdnSsFxa4tiOm3nU1rQcz8ZrquhbagXYAYAsT0r0FAcF2rBmL6h8mftQPZDlbEPS1jk4AYC0otEUivFf1AfklrNgLIPW6pQOE7PAhICfRv01NAYdNjTq10oHgBeoFYDGS3VREQ80DNdQCIhUDMA7U6Ktf5FQTEPBCrW0BML7jXGAZUs6jDdylbZQgUCxUJxOoIyN22C5MAYrsC+WYW1JcLyI+swpNZPJC+KphbQxJArA3EkkDqD1EBINYCCsEzAfmRVXhSLzOLU0dAhoD5ZQWBWAqolhpG2egEQOZJAyDm684J5Ec14Al1jscAsRDIKnWAGADEUCB3HwKUdSvmx8XgSb1M/jB9SMn0DX14qS4Ysz+2jHlE+AB9p7rO/N0sLMnsI1zCPq25YR5gnmvfAY+swpN6w0YdtKDarUQsakG2DQjX9QZtwW4JgRbk+5e4Bbm63DoY7gvkAIJaUB+Q9WgDCbcsbkUTRo75JQuBzINBoLAqtVoGQGY9zQk0rA+yvWKwcQ8SIFBtd5xY1I5cZ++Q3dawBWTv9kCui8oJ5EdW4Um9fkGHALmiovZtwkI5GxY8uq7jGsP+PgIKu/Gshxp+ZBXcD4oWKLSyy6ObCwgULnRtWgAGJIJmyCKnYCNX0LEYawHV04CgutyNDlAkEwPVhQO1F70F5P1AIH89AdSWaW3elgZkU0kgW1cHSIQOOJBTLQioHgjkjtXmBPIirQeWBtTRSAAlSnWq6gWCV8SFA8XLMD8Q9BpKAOp9cfMBAY2jfKDRYQ8qpz4Wy2SNA7Wg3hTUvSRTBbSgrECjU0sF2o/GSoCypggISREQkiIgJEVASIqAkFRWIJqzmgaiOasIEM1ZRYBozioQNGd1IJD8fjGas5oAkkFzVhEgmrOKANGcVQwIjoI0CGh8ioCQFAEhKQJCUgSEpAgISRUAtO2gFkRABKQvCQhOERCSIiAkRUBIioCQFAEhqcxA6/si2nmBVvhFtLMCrfGLaGcFoi+i7cbqv4h2LiA5sirW+EW0cwGZWN8X0e4HaEVfRLsHoPacVRPDOuvspfa9DRl+ypWAkCAgJAiIAgoCQoKAkCAgJAgIiYFAwI5jO8zshWRJtaNuSvQXVKXS1d1/o/6OG61q9xgGFJ1A6wn9R7HJkup8nCnRX1CftUtWJw+k7799g1Y1QwwDav2BMBTm785TJfX5OFOit6Aula7ug+S4foVVNUcMA2r9iTkUZvZCuqQ61NMlEgXNwSBSna9jwKubHsOAohNocJjZC+mSctFNiURBxYhVJ0844FXtHrO1IBXXr+ZqQVh1H7//TgyoaveYrQ9S4bqFnvvvB/RBEVBfqftvXvmXVUAfFJ1Ag8PMXkiXlIthSiQK2hWxvzrtM6Cq3WPW/SA5e2HG/aD+6uROkuzDi9kP2nAQEBIEhAQBIUFASBAQEgSEBAEhkQ3ov/8Rd88vcz3bfJELaJE4MggIiUxAd8+q6rRBunv+Wl1rfp0L8XhRVcdXeV7B1MjZgiTQsyfvxE0lfx1fPV6cCHHTXC85sgOdy+Z0rhK3svU8vDzP9BKmRW4g2RXZXzeVitNML2FaHBSo8LVLxSGBbo8WsGXLBSS7mjbQ40XThEpXyrYn/bY6aQOpzXzhPnQshgUBIUFASBAQEgSEBAEhQUBI/B8AwJYznoUxyAAAAABJRU5ErkJggg==" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">time.series$time &lt;-<span class="st"> </span><span class="ot">NULL</span> <span class="co"># get rid of this auxilary variable</span></code></pre></div>
+<p>Fit uSEM with simulated 2-variate time-series.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">var.number &lt;-<span class="st"> </span><span class="dv">2</span>
+lag.order &lt;-<span class="st"> </span><span class="dv">1</span>
+replication &lt;-<span class="st"> </span><span class="dv">200</span>
+steps &lt;-<span class="st"> </span><span class="dv">100</span>
+threshold &lt;-<span class="st"> </span><span class="fl">0.01</span>
+
+<span class="co"># fit model with raw data</span>
+<span class="co"># source(&quot;C:/Users/Xiao Yang/Downloads/18 uSEMR/03 R Code/5 debug indSEM/pompom/R/uSEM_20171004.R&quot;)</span>
+model.fit &lt;-<span class="st"> </span><span class="kw">uSEM</span>(var.number, time.series, lag.order,<span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">trim =</span> <span class="ot">TRUE</span>)
+<span class="kw">model.summary</span>(model.fit, var.number , lag.order)</code></pre></div>
+<pre><code>## $beta
+##            [,1]      [,2] [,3]      [,4]
+## [1,]  0.0000000 0.0000000    0 0.0000000
+## [2,]  0.0000000 0.0000000    0 0.0000000
+## [3,]  0.6686672 0.0000000    0 0.5218735
+## [4,] -0.2042521 0.5660247    0 0.0000000
+## 
+## $beta.se
+##            [,1]       [,2] [,3]      [,4]
+## [1,] 0.00000000 0.00000000    0 0.0000000
+## [2,] 0.00000000 0.00000000    0 0.0000000
+## [3,] 0.04500477 0.00000000    0 0.0566596
+## [4,] 0.05190235 0.06516276    0 0.0000000
+## 
+## $psi
+##             [,1]        [,2]        [,3]       [,4]
+## [1,] 0.022072245 0.006761862 0.000000000 0.00000000
+## [2,] 0.006761862 0.014003014 0.000000000 0.00000000
+## [3,] 0.000000000 0.000000000 0.008883028 0.00000000
+## [4,] 0.000000000 0.000000000 0.000000000 0.01008202
+## 
+## $fit.stat
+##                npar                fmin               chisq 
+##               9.000               0.000               0.106 
+##                  df              pvalue      baseline.chisq 
+##               1.000               0.745             277.337 
+##         baseline.df     baseline.pvalue                 cfi 
+##               6.000               0.000               1.000 
+##                 tli                nnfi                 rfi 
+##               1.020               1.020               0.998 
+##                 nfi                pnfi                 ifi 
+##               1.000               0.167               1.003 
+##                 rni                logl   unrestricted.logl 
+##               1.003             618.006             618.059 
+##                 aic                 bic              ntotal 
+##           -1218.012           -1188.372             199.000 
+##                bic2               rmsea      rmsea.ci.lower 
+##           -1216.884               0.000               0.000 
+##      rmsea.ci.upper        rmsea.pvalue                 rmr 
+##               0.130               0.799               0.000 
+##          rmr_nomean                srmr        srmr_bentler 
+##               0.000               0.004               0.004 
+## srmr_bentler_nomean         srmr_bollen  srmr_bollen_nomean 
+##               0.004               0.004               0.004 
+##          srmr_mplus   srmr_mplus_nomean               cn_05 
+##               0.004               0.004            7201.835 
+##               cn_01                 gfi                agfi 
+##           12438.149               1.000               0.997 
+##                pgfi                 mfi                ecvi 
+##               0.100               1.002               0.091 
+## 
+## $beta.estimates
+##     lhs op  rhs    est    se      z pvalue ci.lower ci.upper
+## 18 eta3  ~ eta1  0.669 0.045 14.858      0    0.580    0.757
+## 19 eta4  ~ eta2  0.566 0.065  8.686      0    0.438    0.694
+## 20 eta3  ~ eta4  0.522 0.057  9.211      0    0.411    0.633
+## 21 eta4  ~ eta1 -0.204 0.052 -3.935      0   -0.306   -0.103
+## 
+## $psi.estimates
+##     lhs op  rhs   est    se     z pvalue ci.lower ci.upper
+## 13 eta1 ~~ eta1 0.022 0.002 9.975      0    0.018    0.026
+## 14 eta1 ~~ eta2 0.007 0.001 5.064      0    0.004    0.009
+## 15 eta2 ~~ eta2 0.014 0.001 9.975      0    0.011    0.017
+## 16 eta3 ~~ eta3 0.009 0.001 9.975      0    0.007    0.011
+## 17 eta4 ~~ eta4 0.010 0.001 9.975      0    0.008    0.012</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.stat &lt;-<span class="st"> </span><span class="kw">fitMeasures</span>(model.fit)</code></pre></div>
+<p>Compare beta estimates</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># parse beta matrix</span>
+beta.matrix &lt;-<span class="st"> </span><span class="kw">parse.beta</span>(var.number,model.fit, lag.order, <span class="dt">matrix =</span> T)
+beta.matrix</code></pre></div>
+<pre><code>## $est
+##            [,1]      [,2] [,3]      [,4]
+## [1,]  0.0000000 0.0000000    0 0.0000000
+## [2,]  0.0000000 0.0000000    0 0.0000000
+## [3,]  0.6686672 0.0000000    0 0.5218735
+## [4,] -0.2042521 0.5660247    0 0.0000000
+## 
+## $se
+##            [,1]       [,2] [,3]      [,4]
+## [1,] 0.00000000 0.00000000    0 0.0000000
+## [2,] 0.00000000 0.00000000    0 0.0000000
+## [3,] 0.04500477 0.00000000    0 0.0566596
+## [4,] 0.05190235 0.06516276    0 0.0000000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(beta.matrix$est,<span class="dv">2</span>)</code></pre></div>
+<pre><code>##       [,1] [,2] [,3] [,4]
+## [1,]  0.00 0.00    0 0.00
+## [2,]  0.00 0.00    0 0.00
+## [3,]  0.67 0.00    0 0.52
+## [4,] -0.20 0.57    0 0.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">true.beta</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]  0.0  0.0    0  0.0
+## [2,]  0.0  0.0    0  0.0
+## [3,]  0.6  0.0    0  0.6
+## [4,] -0.2  0.6    0  0.0</code></pre>
+<p>Compute the intrainvidual variability (IIV) metric (2 by 2 matrix).</p>
+<p>Point estimation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ponit estimate of iRAM </span>
+<span class="kw">iRAM</span>(model.fit, var.number, lag.order, <span class="dt">boot =</span> F)</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   11    8
+## [2,]   11   10</code></pre>
+<p>Compare iRAM with true model</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compute.recovery.time.from.beta</span>(true.beta,var.number, lag.order, threshold , replication, steps)</code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   10    8
+## [2,]   11   10</code></pre>
+<p>Compuare IIV metric by bootstrapping beta.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># bootstrapped iRAM</span>
+
+<span class="kw">iRAM</span>(model.fit, 
+     var.number, 
+     lag.order,
+     <span class="co"># threshold,</span>
+     <span class="fl">0.05</span>,
+     <span class="dt">boot =</span> <span class="ot">TRUE</span>, 
+     <span class="co"># replication,</span>
+     <span class="dv">200</span>,
+     steps ,
+     <span class="dt">plot.time.profile =</span> <span class="ot">TRUE</span>,
+     <span class="dt">plot.histogram =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning: Removed 10000 rows containing missing values (geom_path).</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>##      [,1]          [,2]          [,3]          [,4]         
+## [1,] &quot;from.1.to.1&quot; &quot;from.1.to.2&quot; &quot;from.2.to.1&quot; &quot;from.2.to.2&quot;</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## $mean
+##      [,1] [,2]
+## [1,] 6.18 6.87
+## [2,] 7.13 7.17
+## 
+## $lower
+##      [,1] [,2]
+## [1,]    4    6
+## [2,]    6    4
+## 
+## $upper
+##      [,1] [,2]
+## [1,]    9    8
+## [2,]    9    9</code></pre>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

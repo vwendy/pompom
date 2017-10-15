@@ -1,0 +1,21 @@
+Package: pompom
+Type: Package
+Title: Person-Oriented Method and Perturbation on Model
+Version: 0.1.0
+Author: c(
+    person("Xiao", "Yang", email = "xfy5031@psu.edu", role = "cre"),
+    person("Nilam", "Ram", email = "nur5@psu.edu", role = "aut"))
+Maintainer: Xiao Yang <xfy5031@psu.edu>
+Description: An implementation of a hybrid method of person-oriented method 
+    and perturbation on the model. The hybrid method will provide a multivariate
+    intraindividual variability metric (iRAM). The person-oriented method refers to uSEM 
+    (unified structural equation modeling), and perturbation was conducted according to
+    the impulse response analysis.
+Depends: R (>= 3.0.0), lavaan (>= 0.5-23.1097), matrixcalc (>= 1.0-3), ggplot2 (>= 2.2.1), reshape2 (>= 1.4.2)
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: knitr, rmarkdown,
+    testthat
+VignetteBuilder: knitr
