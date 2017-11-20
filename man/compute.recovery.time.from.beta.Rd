@@ -5,7 +5,7 @@
 \title{Generate recovery time (impulse response anlaysis metric) from beta matrix.}
 \usage{
 compute.recovery.time.from.beta(beta.matrix, var.number, lag.order = 1,
-  threshold = 0.01, repliation = 200, steps = 100)
+  threshold = 0.01, replication = 200, steps = 100)
 }
 \arguments{
 \item{beta.matrix}{beta matrix}
@@ -16,9 +16,9 @@ compute.recovery.time.from.beta(beta.matrix, var.number, lag.order = 1,
 
 \item{threshold}{threshold of calculation of recovery time (duration of perturbation), default value is 0.01}
 
-\item{steps}{number of steps of impulse response analysis, default value is 100}
-
 \item{replication}{number of replication of bootstrap, default value is 200}
+
+\item{steps}{number of steps of impulse response analysis, default value is 100}
 }
 \value{
 iRAM matrix. Rows represent where the orthognal impulse was given, and columns represent the response. Dimension is var.number by var.number.

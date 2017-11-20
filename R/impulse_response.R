@@ -101,7 +101,7 @@ compute.recovery.time.from.beta <- function(beta.matrix,
                                             var.number,
                                             lag.order =1,
                                             threshold = 0.01,
-                                            repliation = 200,
+                                            replication = 200,
                                             steps = 100){
   recovery.time <- matrix(rep(0, var.number * var.number), nrow = var.number)
   time.profiles <- impulse.response(var.number,
@@ -217,9 +217,11 @@ iRAM.boot <- function(model.fit,
                       lag.order = 1,
                       threshold = 0.01,
                       replication = 200,
-                      steps = 100,
-                      plot.time.profile = FALSE,
-                      plot.histogram = FALSE){
+                      steps = 100
+                      # ,
+                      # plot.time.profile = FALSE,
+                      # plot.histogram = FALSE
+                      ){
   recovery.time.reps <- matrix(rep(0, var.number*var.number*replication), nrow = replication)
   recovery.time.mean <- matrix(rep(0, var.number*var.number), nrow = 1)
   recovery.time.ci.upper <- matrix(rep(0, var.number*var.number), nrow = 1)
@@ -252,47 +254,46 @@ iRAM.boot <- function(model.fit,
       }
     }
   }
-  # plot time profiles
-  if (plot.time.profile == TRUE)
-  {
-    simulation.data.plot <- data.frame(simulation.data)
-    simulation.data.plot <- melt(simulation.data.plot, id = c("repnum", "steps"))
-    # print(head(simulation.data.plot))
-
-    print(ggplot(data = simulation.data.plot,
-                 aes(x = steps, y = value, group = repnum, color = variable))+
-            geom_line(alpha = 0.5)+
-            geom_hline(yintercept = threshold, alpha = 0.5) +
-            geom_hline(yintercept = -threshold, alpha = 0.5) +
-            facet_wrap(~variable))
-          # +            xlim(0,50))
-  }
-
+  # # plot time profiles
+  # if (plot.time.profile == TRUE)
+  # {
+  #   simulation.data.plot <- data.frame(simulation.data)
+  #   simulation.data.plot <- melt(simulation.data.plot, id = c("repnum", "steps"))
+  #   # print(head(simulation.data.plot))
+  #
+  #   print(ggplot(data = simulation.data.plot,
+  #                aes(x = steps, y = value, group = repnum, color = variable))+
+  #           geom_line(alpha = 0.5)+
+  #           geom_hline(yintercept = threshold, alpha = 0.5) +
+  #           geom_hline(yintercept = -threshold, alpha = 0.5) +
+  #           facet_wrap(~variable))
+  #         # +            xlim(0,50))
+  # }
 
   # plot the distribution of recovery time
-  if (plot.histogram == TRUE)
-  {
-
-    recovery.time.reps.plot <- data.frame(recovery.time.reps)
-
-    column.names <- NULL
-    for (from in 1:var.number)
-    {
-      for (to in 1:var.number)
-      {
-        column.names <- cbind(column.names,paste("from.", from, ".to.", to, sep = ""))
-      }
-    }
-    # print(column.names)
-    names(recovery.time.reps.plot) <- column.names
-
-    recovery.time.reps.plot$index <- 1:replication
-    recovery.time.reps.plot <- melt(recovery.time.reps.plot, id = "index")
-
-    print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
-      geom_histogram()+
-      facet_wrap(~variable))
-  }
+  # if (plot.histogram == TRUE)
+  # {
+  #
+  #   recovery.time.reps.plot <- data.frame(recovery.time.reps)
+  #
+  #   column.names <- NULL
+  #   for (from in 1:var.number)
+  #   {
+  #     for (to in 1:var.number)
+  #     {
+  #       column.names <- cbind(column.names,paste("from.", from, ".to.", to, sep = ""))
+  #     }
+  #   }
+  #   # print(column.names)
+  #   names(recovery.time.reps.plot) <- column.names
+  #
+  #   recovery.time.reps.plot$index <- 1:replication
+  #   recovery.time.reps.plot <- melt(recovery.time.reps.plot, id = "index")
+  #
+  #   print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
+  #     geom_histogram()+
+  #     facet_wrap(~variable))
+  # }
 
   # compute mean and confidence interval by each node-to-node cell
   recovery.time.mean <- colMeans(recovery.time.reps)
@@ -315,8 +316,11 @@ iRAM.boot <- function(model.fit,
   # return value should be a mean and confidence interval vector with length of var.number by var.number
   return(list(mean = ret.mean,
               lower = ret.lower,
-              upper=ret.upper))
+              upper=ret.upper,
+              time.profile.data = simulation.data,
+              recovery.time.reps = recovery.time.reps))
 }
+
 
 #' Generate iRAM (impulse response anlaysis metric) from model fit.
 #'
@@ -327,7 +331,7 @@ iRAM.boot <- function(model.fit,
 #' @param boot to bootstrap, default value is FALSE
 #' @param replication number of replication of bootstrap, default value is 200
 #' @param steps number of steps of impulse response analysis, default value is 100
-#' @param plot to plot distribution of iRAM, default value is FALSE
+#' @param plot.histogram to plot distribution of iRAM, default value is FALSE
 #'
 #' @return iRAM matrix. Rows represent where the orthognal impulse was given, and columns represent the response. Dimension is var.number by var.number.
 #'
@@ -339,13 +343,23 @@ iRAM <- function(model.fit,
                  threshold = 0.01,
                  boot = FALSE,
                  replication = 200,
-                 steps = 100,
-                 plot.time.profile = FALSE,
-                 plot.histogram = FALSE)
+                 steps = 100)
+                 # steps = 100,
+                 # plot.time.profile = FALSE,
+                 # plot.histogram = FALSE)
 {
   if (boot)
   {
-    iRAM.boot(model.fit, var.number, lag.order, threshold , replication , steps,plot.time.profile, plot.histogram )
+    iRAM.boot(model.fit,
+              var.number,
+              lag.order,
+              threshold ,
+              replication ,
+              steps
+              # ,
+              # plot.time.profile,
+              # plot.histogram
+              )
   }
   else
   {

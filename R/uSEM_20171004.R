@@ -6,7 +6,10 @@ prepare.data <- function(time.series, lag.order = 1)
   var.number <- length(time.series[1,])
   time.series.lag1 <- time.series[1:(n.obs-1),]
   time.series.stacked <- cbind(time.series.lag1, time.series[2:n.obs,])
-  names(time.series.stacked) <- paste("y", 1:(2*var.number), sep = "")
+  # names(time.series.stacked) <- paste("y", 1:(2*var.number), sep = "")
+  names(time.series.stacked) <- c(paste(names(time.series), ".lag.obs", sep = ""),
+                                  paste(names(time.series), ".obs", sep = ""))
+  # print(names(time.series.stacked))
   return (time.series.stacked)
 }
 ### Function1: find.path.to.free.up
@@ -105,6 +108,7 @@ uSEM <- function(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
   path.list <- NULL
 
   data <- prepare.data(data, lag.order)
+  # var.names <- names(data)
 
   # to write syntax for beta matrix (LISREL convention) or aka regression syntax (lavaan convention)
   # "~0*" made the modification indices open up about beta elements, but still
@@ -120,6 +124,7 @@ uSEM <- function(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
                                             "eta", i, "~0*","eta", j, "\n ",sep = "")
     }
   }
+
   # lower half of beta matrix. for phi matrix (lag-1 temporal relations), open up diagnal line, AR = T
   # (this is also to avoid bidirectional paths in contemporaneous relations suggesetd by modification indices)
   # if lag.order > 1, then this is the lower block with the contemporaneous latent variables
@@ -136,11 +141,19 @@ uSEM <- function(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
   # everything else is left to be fitted in the automatic search process later
 
   # to write syntax for measurement syntax, fix factor loading to 1 and measurement error to 0
+  # for (i in 1:(var.number*(lag.order+1)))
+  # {
+  #   measurement.syntax <- paste(measurement.syntax,
+  #                               "eta", i, "=~1 * y", i, "\n ",sep = "")
+  # }
+
   for (i in 1:(var.number*(lag.order+1)))
   {
     measurement.syntax <- paste(measurement.syntax,
-                                "eta", i, "=~1 * y", i, "\n ",sep = "")
+                                "eta", i, "=~1 * ", names(data)[i], "\n ",sep = "")
   }
+
+
 
   # to write syntax for variance.syntax, part 1, upper left (northwest block) being symmetric
   for (i in 1:(lag.order*var.number)){
@@ -177,7 +190,7 @@ uSEM <- function(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
     model.fit <- tryCatch(lavaan(model.syntax,
                            data=data,
                            model.type      = "sem",
-                           # missing         = "fiml",
+                           missing         = "fiml",
                            estimator       = "ml"),
                     error=function(e) e)
 
@@ -241,7 +254,7 @@ uSEM <- function(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
     model.fit <- tryCatch(lavaan::lavaan(final.model,
                                    data=data,
                                    model.type      = "sem",
-                                   # missing         = "fiml",
+                                   missing         = "fiml",
                                    estimator       = "ml"  ),
                     error=function(e) e)
   }
@@ -418,41 +431,3 @@ model.summary <- function(model.fit, var.number, lag.order) # pass the modelfit 
 W2E <-function(x)   {
   cbind(which(x!=0,arr.ind=TRUE),x[x!=0])
 }
-
-# to compute recall and precision of the estimated model, compared to true model
-# calc.model.accuracy <- function(true.model.matrix,est.model.matrix,var.number )
-# {
-#   p <- var.number
-#   true.beta <- true.model.matrix
-#   beta.matrix <- est.model.matrix
-#
-#   true.positive <- 0
-#   false.positive <- 0
-#   false.negative <- 0
-#
-#   # compare the lower half of beta matrix, from row 14 to 26, and column 1 to 26
-#   for (row in (p + 1):(2 * p))
-#   {
-#     for (col in 1:(2*p))
-#     {
-#       if (true.beta[row, col]!= 0 & beta.matrix[row, col] != 0)
-#       {
-#         true.positive <- true.positive + 1
-#       }
-#       else if (true.beta[row, col]== 0 & beta.matrix[row, col]!= 0)
-#       {
-#         false.positive <- false.positive + 1
-#       }
-#       else if  (true.beta[row, col]!= 0 & beta.matrix[row, col] == 0)
-#       {
-#         false.negative <- false.negative + 1
-#       }
-#
-#     }
-#   }
-#
-#   precision <- true.positive/(true.positive + false.positive)
-#   recall <- true.positive/(true.positive + false.negative)
-#   return(list(precision = precision, recall = recall))
-# }
-
