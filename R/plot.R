@@ -1,24 +1,10 @@
 
-#' Convert the matrix format of edges into the list format of edges
-#'
-#' @param beta matrix of temporal relations, cotaining both lag-1 and contemporaneous
-#'
-#' @return edge list
-#'
-#' @export
-#'
-W2E <-function(x)   {
-  cbind(which(x!=0,arr.ind=TRUE),x[x!=0])
-}
-
-
-
 #' Plot the network graph
 #'
 #' @param beta matrix of temporal relations, cotaining both lag-1 and contemporaneous
 #' @param var.number number of variables in the time series
 #'
-#' @return none
+#' @return NULL
 #'
 #' @export
 #'
@@ -30,25 +16,33 @@ plot.network.graph <- function(beta, var.number)
 
   econtemporaneous <- W2E(t(contemporaneous.relations))
   elag1 <- W2E(t(lag.1.relations))
-  plot.names <-  c("happy", "sad", "other.communion")
+  # plot.names <-  c("GSR", "HR", "Self-rated Nervousness")
+  plot.names <- 1:var.number
 
-  isLagged               <- c(rep(TRUE, nrow(elag1)), rep(FALSE, nrow(econtemporaneous)))
-  curve                  <- rep(1, length(isLagged))
+  # somehow if the the dimension of edge matrix is the same with var.number
+  # the edge list was recognized as edge matrix, so I am omitting the graph in this
 
-  qgraph(rbind(elag1, econtemporaneous),
-         layout              = "circle",
-         lty                 = ifelse(isLagged,2, 1),
-         edge.labels         = F,
-         curve               = curve,
-         fade                = FALSE,
-         posCol              = "green",
-         negCol              = "red",
-         labels              = plot.names,
-         label.cex           = 1,
-         label.norm          = "O",
-         label.scale         = FALSE,
-         edge.label.cex      = 1.5,
-         edge.label.position = .3)
+  if (nrow(rbind(elag1, econtemporaneous)) > var.number){
+    isLagged               <- c(rep(TRUE, nrow(elag1)), rep(FALSE, nrow(econtemporaneous)))
+    curve                  <- rep(1, length(isLagged))
+
+    qgraph(rbind(elag1, econtemporaneous),
+           layout              = "circle",
+           lty                 = ifelse(isLagged,2, 1),
+           edge.labels         = F,
+           curve               = curve,
+           fade                = FALSE,
+           posCol              = "green",
+           negCol              = "red",
+           labels              = plot.names,
+           label.cex           = 1,
+           label.norm          = "O",
+           label.scale         = FALSE,
+           edge.label.cex      = 5,
+           edge.label.position = .3,
+           edge.width = 2)
+  }
+  return(NULL)
 }
 
 
@@ -58,7 +52,7 @@ plot.network.graph <- function(beta, var.number)
 #' @param threshold threshold of asymptote of equilibrium
 #' @param xupper upper limit of x-axis
 #'
-#' @return a ggplot object
+#' @return NULL
 #'
 #' @export
 #'
@@ -68,21 +62,35 @@ plot.time.profile <- function(time.series.data, threshold, xupper = 20)
   time.series.data <- data.frame(time.series.data)
   time.series.data <- melt(time.series.data, id = c("repnum", "steps"))
 
-  p <- ggplot(data = time.series.data,
+  print(
+    ggplot(data = time.series.data,
               aes(x = steps, y = value, group = repnum, color = variable))+
     geom_line(alpha = 0.5)+
     geom_hline(yintercept = threshold, alpha = 0.5) +
     geom_hline(yintercept = -threshold, alpha = 0.5)+
     xlim(0,xupper) +
-    facet_wrap(~variable)
-  return (p)
+    facet_wrap(~variable) +
+      theme(
+        panel.background = element_blank(),
+        plot.background = element_blank(),
+        strip.background = element_blank(),
+        axis.text.y=element_text(color="black",size=12),
+        axis.text.x=element_text(color="black",size=12),
+        axis.title.y=element_text(color="black",size=12),
+        axis.title.x=element_text(color="black",size=12),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        axis.line = element_line(color = 'black')
+    ))
+  # return (p)
+  return(NULL)
 }
 
 
 #' Plot distribution of recovery time based on bootstrapped version of iRAM
 #' @param recovery.time.reps bootstrapped version of recovery time
 #'
-#' @return a ggplot object
+#' @return NULL
 #'
 #' @export
 #'
@@ -105,11 +113,12 @@ plot.iRAM.dist <- function(recovery.time.reps){
   recovery.time.reps.plot$index <- 1:nrow(recovery.time.reps)
   recovery.time.reps.plot <- melt(recovery.time.reps.plot, id = "index")
 
-  p <- ggplot(data = recovery.time.reps.plot, aes(x = value))+
+  print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
     geom_histogram()+
-    facet_wrap(~variable)
+    facet_wrap(~variable))
 
-  return(p)
+  # return(p)
+  return(NULL)
 }
 
 

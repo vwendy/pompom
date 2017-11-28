@@ -9,9 +9,6 @@
 \arguments{
 \item{recovery.time.reps}{bootstrapped version of recovery time}
 }
-\value{
-a ggplot object
-}
 \description{
 Plot distribution of recovery time based on bootstrapped version of iRAM
 }

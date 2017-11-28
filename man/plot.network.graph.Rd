@@ -11,9 +11,6 @@
 
 \item{var.number}{number of variables in the time series}
 }
-\value{
-none
-}
 \description{
 Plot the network graph
 }

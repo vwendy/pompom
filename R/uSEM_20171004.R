@@ -427,6 +427,14 @@ model.summary <- function(model.fit, var.number, lag.order) # pass the modelfit 
   }
 }
 
+#' Convert the matrix format of edges into the list format of edges
+#'
+#' @param beta matrix of temporal relations, cotaining both lag-1 and contemporaneous
+#'
+#' @return edge list
+#'
+#' @export
+#'
 # converting adjacency matrix representation to edge representation
 W2E <-function(x)   {
   cbind(which(x!=0,arr.ind=TRUE),x[x!=0])
