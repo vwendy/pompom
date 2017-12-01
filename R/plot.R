@@ -8,7 +8,7 @@
 #'
 #' @export
 #'
-plot.network.graph <- function(beta, var.number)
+plot_network_graph <- function(beta, var.number)
 {
   p <- var.number
   contemporaneous.relations <- matrix(beta[(p+1):(2*p),(p+1):(2*p)], nrow = p, ncol = p, byrow = F)
@@ -57,31 +57,61 @@ plot.network.graph <- function(beta, var.number)
 #' @export
 #'
 
-plot.time.profile <- function(time.series.data, threshold, xupper = 20)
+plot_time_profile <- function(time.series.data, threshold, xupper = 20)
 {
   time.series.data <- data.frame(time.series.data)
-  time.series.data <- melt(time.series.data, id = c("repnum", "steps"))
+  data.names <- names(time.series.data)
 
-  print(
-    ggplot(data = time.series.data,
-              aes(x = steps, y = value, group = repnum, color = variable))+
-    geom_line(alpha = 0.5)+
-    geom_hline(yintercept = threshold, alpha = 0.5) +
-    geom_hline(yintercept = -threshold, alpha = 0.5)+
-    xlim(0,xupper) +
-    facet_wrap(~variable) +
-      theme(
-        panel.background = element_blank(),
-        plot.background = element_blank(),
-        strip.background = element_blank(),
-        axis.text.y=element_text(color="black",size=12),
-        axis.text.x=element_text(color="black",size=12),
-        axis.title.y=element_text(color="black",size=12),
-        axis.title.x=element_text(color="black",size=12),
-        panel.grid = element_blank(),
-        legend.position = "none",
-        axis.line = element_line(color = 'black')
-    ))
+
+  if (ncol(time.series.data) > var.number * var.number + 1){ # bootstrap version
+    time.series.data <- melt(time.series.data, id = c("repnum", "steps"))
+    print(
+      ggplot(data = time.series.data,
+             aes(x = steps, y = value, group = repnum, color = variable))+
+        geom_line(alpha = 0.5)+
+        geom_hline(yintercept = threshold, alpha = 0.5) +
+        geom_hline(yintercept = -threshold, alpha = 0.5)+
+        xlim(0,xupper) +
+        facet_wrap(~variable, ncol = var.number) +
+        theme(
+          panel.background = element_blank(),
+          plot.background = element_blank(),
+          strip.background = element_blank(),
+          axis.text.y=element_text(color="black",size=12),
+          axis.text.x=element_text(color="black",size=12),
+          axis.title.y=element_text(color="black",size=12),
+          axis.title.x=element_text(color="black",size=12),
+          panel.grid = element_blank(),
+          legend.position = "none",
+          axis.line = element_line(color = 'black')
+        ))
+
+  } else  { # point estimate version
+    # print("inside")
+      time.series.data <- melt(time.series.data, id = "steps")
+      print(
+        ggplot(data = time.series.data,
+               aes(x = steps, y = value, color = variable))+
+          geom_line(size = .5)+
+          geom_hline(yintercept = threshold, alpha = 0.5) +
+          geom_hline(yintercept = -threshold, alpha = 0.5)+
+          xlim(0,xupper) +
+          facet_wrap(~variable, ncol = var.number) +
+          theme(
+            panel.background = element_blank(),
+            plot.background = element_blank(),
+            strip.background = element_blank(),
+            axis.text.y=element_text(color="black",size=12),
+            axis.text.x=element_text(color="black",size=12),
+            axis.title.y=element_text(color="black",size=12),
+            axis.title.x=element_text(color="black",size=12),
+            panel.grid = element_blank(),
+            legend.position = "none",
+            axis.line = element_line(color = 'black')
+          ))
+  }
+
+
   # return (p)
   return(NULL)
 }
@@ -95,7 +125,7 @@ plot.time.profile <- function(time.series.data, threshold, xupper = 20)
 #' @export
 #'
 
-plot.iRAM.dist <- function(recovery.time.reps){
+plot_iRAM_dist <- function(recovery.time.reps){
 
   recovery.time.reps.plot <- data.frame(recovery.time.reps)
 
@@ -115,7 +145,7 @@ plot.iRAM.dist <- function(recovery.time.reps){
 
   print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
     geom_histogram()+
-    facet_wrap(~variable))
+    facet_wrap(~variable, ncol = var.number))
 
   # return(p)
   return(NULL)
