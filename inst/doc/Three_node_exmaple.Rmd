@@ -38,7 +38,6 @@ We simulated 200 occasions to represent 200 repeated measurements of the three v
 ```{r, message = FALSE, warning = FALSE}
 library(pompom)
 library(ggplot2)
-library(reshape2)
 library(qgraph)
 library(MASS)
 require(reshape2)

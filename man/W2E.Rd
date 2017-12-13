@@ -7,7 +7,7 @@
 W2E(x)
 }
 \arguments{
-\item{beta}{matrix of temporal relations, cotaining both lag-1 and contemporaneous}
+\item{x}{matrix of temporal relations, cotaining both lag-1 and contemporaneous}
 }
 \value{
 edge list

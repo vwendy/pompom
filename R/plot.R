@@ -57,13 +57,16 @@ plot_network_graph <- function(beta, var.number)
 #' @export
 #'
 
-plot_time_profile <- function(time.series.data, threshold, xupper = 20)
+plot_time_profile <- function(time.series.data,
+                              threshold,
+                              xupper = 20)
 {
   time.series.data <- data.frame(time.series.data)
   data.names <- names(time.series.data)
 
 
   if (ncol(time.series.data) > var.number * var.number + 1){ # bootstrap version
+    var.number <- sqrt(ncol(time.series.data)-2)
     time.series.data <- melt(time.series.data, id = c("repnum", "steps"))
     print(
       ggplot(data = time.series.data,
@@ -88,27 +91,28 @@ plot_time_profile <- function(time.series.data, threshold, xupper = 20)
 
   } else  { # point estimate version
     # print("inside")
-      time.series.data <- melt(time.series.data, id = "steps")
-      print(
-        ggplot(data = time.series.data,
-               aes(x = steps, y = value, color = variable))+
-          geom_line(size = .5)+
-          geom_hline(yintercept = threshold, alpha = 0.5) +
-          geom_hline(yintercept = -threshold, alpha = 0.5)+
-          xlim(0,xupper) +
-          facet_wrap(~variable, ncol = var.number) +
-          theme(
-            panel.background = element_blank(),
-            plot.background = element_blank(),
-            strip.background = element_blank(),
-            axis.text.y=element_text(color="black",size=12),
-            axis.text.x=element_text(color="black",size=12),
-            axis.title.y=element_text(color="black",size=12),
-            axis.title.x=element_text(color="black",size=12),
-            panel.grid = element_blank(),
-            legend.position = "none",
-            axis.line = element_line(color = 'black')
-          ))
+    var.number <- sqrt(ncol(time.series.data)-1)
+    time.series.data <- melt(time.series.data, id = "steps")
+    print(
+      ggplot(data = time.series.data,
+             aes(x = steps, y = value, color = variable))+
+        geom_line(size = .5)+
+        geom_hline(yintercept = threshold, alpha = 0.5) +
+        geom_hline(yintercept = -threshold, alpha = 0.5)+
+        xlim(0,xupper) +
+        facet_wrap(~variable, ncol = var.number) +
+        theme(
+          panel.background = element_blank(),
+          plot.background = element_blank(),
+          strip.background = element_blank(),
+          axis.text.y=element_text(color="black",size=12),
+          axis.text.x=element_text(color="black",size=12),
+          axis.title.y=element_text(color="black",size=12),
+          axis.title.x=element_text(color="black",size=12),
+          panel.grid = element_blank(),
+          legend.position = "none",
+          axis.line = element_line(color = 'black')
+        ))
   }
 
 
@@ -128,6 +132,7 @@ plot_time_profile <- function(time.series.data, threshold, xupper = 20)
 plot_iRAM_dist <- function(recovery.time.reps){
 
   recovery.time.reps.plot <- data.frame(recovery.time.reps)
+  var.number <- sqrt(ncol(recovery.time.reps))
 
   column.names <- NULL
   for (from in 1:var.number)

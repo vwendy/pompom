@@ -1,3 +1,15 @@
+#' @import lavaan
+#'
+#' @import reshape2
+#'
+#' @import ggplot2
+#'
+#' @import matrixcalc
+#'
+#' @import qgraph
+#'
+#' @importFrom stats rnorm
+#'
 # prepare stacked time-series with the given lag.order, in the long-format
 prepare.data <- function(time.series, lag.order = 1)
 {
@@ -392,9 +404,9 @@ model.summary <- function(model.fit, var.number, lag.order) # pass the modelfit 
   if (check.npd | check.not.identified | check.singular | check.error | !converge)
   {
     if (!converge){
-      print(paste(id, burst, "not converged!"))
+      print( "not converged!")
     } else{
-      print(paste(id, burst, "model did not fit!"))
+      print( "model did not fit!")
     }
   }else{
     # no trimming, because some cases trimming didn't work
@@ -429,7 +441,7 @@ model.summary <- function(model.fit, var.number, lag.order) # pass the modelfit 
 
 #' Convert the matrix format of edges into the list format of edges
 #'
-#' @param beta matrix of temporal relations, cotaining both lag-1 and contemporaneous
+#' @param x matrix of temporal relations, cotaining both lag-1 and contemporaneous
 #'
 #' @return edge list
 #'

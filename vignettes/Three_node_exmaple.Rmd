@@ -38,7 +38,6 @@ We simulated 200 occasions to represent 200 repeated measurements of the three v
 ```{r, message = FALSE, warning = FALSE}
 library(pompom)
 library(ggplot2)
-library(reshape2)
 library(qgraph)
 library(MASS)
 require(reshape2)
@@ -173,7 +172,9 @@ point.estimate.iRAM$recovery.time
 Plot time profile
 
 ```{r, fig.width = 8, fig.height =6, warning = F}
-plot_time_profile(point.estimate.iRAM$time.series.data, threshold = threshold, xupper = 50)
+plot_time_profile(point.estimate.iRAM$time.series.data, 
+                  threshold = threshold, 
+                  xupper = 50)
 
 ```
 
@@ -189,9 +190,6 @@ bootstrap.iRAM <- iRAM(model.fit,
                        boot = TRUE, 
                        replication = replication,
                        steps= steps
-                       # ,
-                       # plot_time_profile = TRUE,
-                       # plot.histogram = TRUE
                        )
 
 bootstrap.iRAM$mean
@@ -205,7 +203,6 @@ Plot boostrapped time profiles
 need to output the bootstrapped time profiles data
 ```{r, fig.width = 8, fig.height =6, warning = F}
 plot_time_profile(bootstrap.iRAM$time.profile.data, threshold = threshold, xupper = 25)
-# plot_time_profile(bootstrap.iRAM$time.profile.data, threshold = threshold, xupper = 25)
 
 ```
 

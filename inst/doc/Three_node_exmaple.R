@@ -1,7 +1,6 @@
 ## ---- message = FALSE, warning = FALSE-----------------------------------
 library(pompom)
 library(ggplot2)
-library(reshape2)
 library(qgraph)
 library(MASS)
 require(reshape2)

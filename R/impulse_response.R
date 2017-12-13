@@ -147,7 +147,11 @@ bootstrap.beta.from.beta.est <- function(beta.est,  replication = 200, var.numbe
 
 # to parse one replication (repnum) in the returned value from "bootstrap.beta.from.list" into a beta matrix
 # size of matrix is  nrow = (lag.order+1) * var.number, ncol = nrow
-parse.bootstrapped.beta.to.beta.matrix <- function(var.number, replication, boostraped.beta, repnum) # pass the modelfit (lavaan)
+parse.bootstrapped.beta.to.beta.matrix <- function(var.number,
+                                                   replication,
+                                                   boostraped.beta,
+                                                   repnum,
+                                                   lag.order) # pass the modelfit (lavaan)
 {
   beta.est <- data.frame(cbind(boostraped.beta[,1:2],boostraped.beta[,4 + repnum]))
   names(beta.est) <- c("lhs", "rhs", "est")
@@ -188,7 +192,11 @@ impulse.response.boot <- function(replication = 200, var.number, lag.order, boot
 
   for (repnum in 1:replication)
   {
-    one.beta.draw <- parse.bootstrapped.beta.to.beta.matrix(var.number, replication, bootstrapped.beta, repnum)
+    one.beta.draw <- parse.bootstrapped.beta.to.beta.matrix(var.number,
+                                                            replication,
+                                                            bootstrapped.beta,
+                                                            repnum,
+                                                            lag.order)
     impulse.response.time.series <- impulse.response(var.number,
                                                      lag.order,
                                                      steps,
@@ -335,7 +343,6 @@ iRAM.boot <- function(model.fit,
 #' @param boot to bootstrap, default value is FALSE
 #' @param replication number of replication of bootstrap, default value is 200
 #' @param steps number of steps of impulse response analysis, default value is 100
-#' @param plot.histogram to plot distribution of iRAM, default value is FALSE
 #'
 #' @return iRAM matrix. Rows represent where the orthognal impulse was given, and columns represent the response. Dimension is var.number by var.number.
 #'

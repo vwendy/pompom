@@ -23,8 +23,6 @@ iRAM(model.fit, beta, var.number, lag.order = 1, threshold = 0.01,
 \item{replication}{number of replication of bootstrap, default value is 200}
 
 \item{steps}{number of steps of impulse response analysis, default value is 100}
-
-\item{plot.histogram}{to plot distribution of iRAM, default value is FALSE}
 }
 \value{
 iRAM matrix. Rows represent where the orthognal impulse was given, and columns represent the response. Dimension is var.number by var.number.
