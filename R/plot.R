@@ -150,7 +150,19 @@ plot_iRAM_dist <- function(recovery.time.reps){
 
   print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
     geom_histogram()+
-    facet_wrap(~variable, ncol = var.number))
+    facet_wrap(~variable, ncol = var.number)+
+    theme(
+      panel.background = element_blank(),
+      plot.background = element_blank(),
+      strip.background = element_blank(),
+      axis.text.y=element_text(color="black",size=12),
+      axis.text.x=element_text(color="black",size=12),
+      axis.title.y=element_text(color="black",size=12),
+      axis.title.x=element_text(color="black",size=12),
+      panel.grid = element_blank(),
+      legend.position = "none",
+      axis.line = element_line(color = 'black')
+    ))
 
   # return(p)
   return(NULL)

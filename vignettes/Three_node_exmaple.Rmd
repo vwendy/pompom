@@ -39,7 +39,6 @@ We simulated 200 occasions to represent 200 repeated measurements of the three v
 library(pompom)
 library(ggplot2)
 library(qgraph)
-library(MASS)
 require(reshape2)
 set.seed(1234)
 ```
@@ -47,7 +46,7 @@ set.seed(1234)
 
 #### Set up a 3 node model
 
-```{r}
+```{r, warning = FALSE}
 
 n.obs <- 200 # number of observation
 p <- 3 # number of variables
@@ -73,7 +72,7 @@ lag.1.relations <- matrix(true.beta[(p+1):(2*p),1:p], nrow = p, ncol = p, byrow 
 
 
 True model is: 
-```{r}
+```{r, warning = FALSE}
 true.beta
 ```
 
@@ -82,6 +81,7 @@ true.beta
 To introduce the terminologies of networks, each of the 3 variables is depicted as a node (circle), and the temporal relations among the nodes are depicted as edges (arrows, and the arrow indicate directionality of the temporal relationship), with color indicating sign of relation (green = positive, red = negative), thickness indicating strength of relation, and line shape indicating temporality of the association (dashed = lag-1, solid = contemporaneous). Lag-1 relations mean the temporal relations between variables from measurement t -1 to the measurement t, and contemporaneous relations means the temporal relations between variables within the same measurement.
 
 ```{r, fig.width = 8, fig.height =6}
+
 plot_network_graph(true.beta, p)
 ```
 
@@ -89,7 +89,7 @@ plot_network_graph(true.beta, p)
 #### Simulate time-series
 some explaination (equation of simulation?)
 
-```{r}
+```{r, warning = FALSE}
 time.series <- matrix(rep(0, p * n.obs), nrow = n.obs, ncol = p)
 time.series[1,] <- rnorm(p,0,1)
 
@@ -101,6 +101,8 @@ for (row in 2:n.obs)
 }
 time.series <- data.frame(time.series)
 names(time.series) <- c("happy", "sad", "other.communion")
+
+
 ```
 
 
@@ -140,11 +142,13 @@ lag.order <- 1 # lag order of the model
 
 model.fit <- uSEM(var.number, time.series, lag.order, verbose = FALSE, trim = TRUE) # trim indicates whether the final model trimmed all insignificant temporal relations
 beta.matrix <- parse.beta(p, model.fit, 1, matrix = TRUE) # parse temporal relations in matrix format
+
 plot_network_graph(beta.matrix$est, var.number)
+
 ```
 
 estimated beta0 = 
-```{r}
+```{r, warning = FALSE}
 beta.matrix$est
 beta.matrix$se
 ```
@@ -153,7 +157,7 @@ beta.matrix$se
 ### Step 3. Impulse response analysis
 
 #### Set parameters
-```{r}
+```{r, warning = FALSE}
 steps <- 100 # number of steps to generate time profile 
 replication <- 200 # number of repilcations in bootstrap 
 threshold <- .01 # setting threshold for approximate asymptote (iRAM calculation)
@@ -180,7 +184,7 @@ plot_time_profile(point.estimate.iRAM$time.series.data,
 
 #### Bootstraped iRAM.
 
-```{r}
+```{r, warning = FALSE}
 
 bootstrap.iRAM <- iRAM(model.fit, 
                        beta = NULL, 
@@ -211,12 +215,11 @@ Plot boostrapped iRAM distribution
 need to output the bootstrapped recovery time data
 ```{r, fig.width = 8, fig.height =6, warning = F}
 plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
-
 ```
 
 
 ### check accuracy of iRAM estimation
-```{r}
+```{r, warning = FALSE}
 # change iRAM into taking beta.matrix as a parameter, so that you can use iRAM to calculate
 true.iRAM <- iRAM(model.fit= NULL,
                   true.beta,
@@ -226,18 +229,18 @@ true.iRAM <- iRAM(model.fit= NULL,
 
 
 sum.diff <- 0
-for (row in 1:nrow(true.iRAM$recovery.time))
+for (row in 1:nrow(bootstrap.iRAM$recovery.time))
 {
   sum.diff <- sum.diff + (bootstrap.iRAM$recovery.time.reps[row,] -
     c(true.iRAM$recovery.time[1,], 
       true.iRAM$recovery.time[2,], 
       true.iRAM$recovery.time[3,]))^2
 }
-RMSE <- sqrt(sum.diff/nrow(true.iRAM$recovery.time))
+RMSE <- sqrt(sum.diff/nrow(bootstrap.iRAM$recovery.time))
 
 
 sum.diff <- 0
-for (row in 1:nrow(true.iRAM$recovery.time))
+for (row in 1:nrow(bootstrap.iRAM$recovery.time))
 {
   sum.diff <- sum.diff + (bootstrap.iRAM$recovery.time.reps[row,] -
     c(true.iRAM$recovery.time[1,], 
@@ -247,7 +250,7 @@ for (row in 1:nrow(true.iRAM$recovery.time))
       true.iRAM$recovery.time[2,], 
       true.iRAM$recovery.time[3,]))
 }
-RB <- 1/nrow(true.iRAM$recovery.time) * sum.diff
+RB <- 1/nrow(bootstrap.iRAM$recovery.time) * sum.diff
 
 SD <- NULL
 for (col in 1:(var.number^2))

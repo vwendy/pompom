@@ -4,11 +4,12 @@
 #'
 #' @import ggplot2
 #'
-#' @import matrixcalc
 #'
 #' @import qgraph
 #'
+#'
 #' @importFrom stats rnorm
+#'
 #'
 # prepare stacked time-series with the given lag.order, in the long-format
 prepare.data <- function(time.series, lag.order = 1)

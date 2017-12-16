@@ -2,11 +2,10 @@
 library(pompom)
 library(ggplot2)
 library(qgraph)
-library(MASS)
 require(reshape2)
 set.seed(1234)
 
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 
 n.obs <- 200 # number of observation
 p <- 3 # number of variables
@@ -29,13 +28,14 @@ contemporaneous.relations <- matrix(true.beta[(p+1):(2*p),(p+1):(2*p)], nrow = p
 lag.1.relations <- matrix(true.beta[(p+1):(2*p),1:p], nrow = p, ncol = p, byrow = F)
 
 
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 true.beta
 
 ## ---- fig.width = 8, fig.height =6---------------------------------------
+
 plot_network_graph(true.beta, p)
 
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 time.series <- matrix(rep(0, p * n.obs), nrow = n.obs, ncol = p)
 time.series[1,] <- rnorm(p,0,1)
 
@@ -47,6 +47,8 @@ for (row in 2:n.obs)
 }
 time.series <- data.frame(time.series)
 names(time.series) <- c("happy", "sad", "other.communion")
+
+
 
 ## ---- fig.width = 8, fig.height =6---------------------------------------
 time.series$time <- seq(1,length(time.series[,1]),1)
@@ -75,13 +77,15 @@ lag.order <- 1 # lag order of the model
 
 model.fit <- uSEM(var.number, time.series, lag.order, verbose = FALSE, trim = TRUE) # trim indicates whether the final model trimmed all insignificant temporal relations
 beta.matrix <- parse.beta(p, model.fit, 1, matrix = TRUE) # parse temporal relations in matrix format
+
 plot_network_graph(beta.matrix$est, var.number)
 
-## ------------------------------------------------------------------------
+
+## ---- warning = FALSE----------------------------------------------------
 beta.matrix$est
 beta.matrix$se
 
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 steps <- 100 # number of steps to generate time profile 
 replication <- 200 # number of repilcations in bootstrap 
 threshold <- .01 # setting threshold for approximate asymptote (iRAM calculation)
@@ -94,10 +98,12 @@ point.estimate.iRAM$recovery.time
 # point.estimate.iRAM$time.series.data
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
-plot_time_profile(point.estimate.iRAM$time.series.data, threshold = threshold, xupper = 50)
+plot_time_profile(point.estimate.iRAM$time.series.data, 
+                  threshold = threshold, 
+                  xupper = 50)
 
 
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 
 bootstrap.iRAM <- iRAM(model.fit, 
                        beta = NULL, 
@@ -107,9 +113,6 @@ bootstrap.iRAM <- iRAM(model.fit,
                        boot = TRUE, 
                        replication = replication,
                        steps= steps
-                       # ,
-                       # plot_time_profile = TRUE,
-                       # plot.histogram = TRUE
                        )
 
 bootstrap.iRAM$mean
@@ -120,14 +123,12 @@ bootstrap.iRAM$lower
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
 plot_time_profile(bootstrap.iRAM$time.profile.data, threshold = threshold, xupper = 25)
-# plot_time_profile(bootstrap.iRAM$time.profile.data, threshold = threshold, xupper = 25)
 
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
 plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 
-
-## ------------------------------------------------------------------------
+## ---- warning = FALSE----------------------------------------------------
 # change iRAM into taking beta.matrix as a parameter, so that you can use iRAM to calculate
 true.iRAM <- iRAM(model.fit= NULL,
                   true.beta,
@@ -137,18 +138,18 @@ true.iRAM <- iRAM(model.fit= NULL,
 
 
 sum.diff <- 0
-for (row in 1:nrow(true.iRAM$recovery.time))
+for (row in 1:nrow(bootstrap.iRAM$recovery.time))
 {
   sum.diff <- sum.diff + (bootstrap.iRAM$recovery.time.reps[row,] -
     c(true.iRAM$recovery.time[1,], 
       true.iRAM$recovery.time[2,], 
       true.iRAM$recovery.time[3,]))^2
 }
-RMSE <- sqrt(sum.diff/nrow(true.iRAM$recovery.time))
+RMSE <- sqrt(sum.diff/nrow(bootstrap.iRAM$recovery.time))
 
 
 sum.diff <- 0
-for (row in 1:nrow(true.iRAM$recovery.time))
+for (row in 1:nrow(bootstrap.iRAM$recovery.time))
 {
   sum.diff <- sum.diff + (bootstrap.iRAM$recovery.time.reps[row,] -
     c(true.iRAM$recovery.time[1,], 
@@ -158,7 +159,7 @@ for (row in 1:nrow(true.iRAM$recovery.time))
       true.iRAM$recovery.time[2,], 
       true.iRAM$recovery.time[3,]))
 }
-RB <- 1/nrow(true.iRAM$recovery.time) * sum.diff
+RB <- 1/nrow(bootstrap.iRAM$recovery.time) * sum.diff
 
 SD <- NULL
 for (col in 1:(var.number^2))
