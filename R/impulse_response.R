@@ -1,4 +1,4 @@
-# library(matrixcalc)
+
 # generate impulse response (multivariate time-series) from beta matrix
 # return value in long format, each column is where the impulse goes into,
 #last column is number of time steps

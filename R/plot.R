@@ -1,4 +1,3 @@
-
 #' Plot the network graph
 #'
 #' @param beta matrix of temporal relations, cotaining both lag-1 and contemporaneous

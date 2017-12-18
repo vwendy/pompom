@@ -1,16 +1,4 @@
-#' @import lavaan
-#'
-#' @import reshape2
-#'
-#' @import ggplot2
-#'
-#'
-#' @import qgraph
-#'
-#'
-#' @importFrom stats rnorm
-#'
-#'
+
 # prepare stacked time-series with the given lag.order, in the long-format
 prepare.data <- function(time.series, lag.order = 1)
 {
