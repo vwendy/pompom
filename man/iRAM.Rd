@@ -30,3 +30,39 @@ iRAM matrix. Rows represent where the orthognal impulse was given, and columns r
 \description{
 Generate iRAM (impulse response anlaysis metric) from model fit.
 }
+\examples{
+\donttest{
+# There are two ways to compute iRAM metric, the point estimation and the bootstrap.
+
+model.fit <- uSEM(var.number = 3,
+                 data = simts,
+                 lag.order = 1,
+                 verbose = FALSE,
+                 trim = TRUE)
+
+# point estimation version of iRAM
+point.iRAM <- iRAM(model.fit = model.fit,
+    beta = NULL,
+    var.number = 3,
+    lag.order = 1,
+    threshold = 0.01,
+    boot = FALSE,
+    replication = 200,
+    steps = 100
+    )
+
+# bootstrap version of iRAM
+boot.iRAM <- iRAM(model.fit = model.fit,
+    beta = NULL,
+    var.number = 3,
+    lag.order = 1,
+    threshold = 0.01,
+    boot = TRUE,
+    replication = 200,
+    steps = 100
+    )
+
+}
+
+
+}
