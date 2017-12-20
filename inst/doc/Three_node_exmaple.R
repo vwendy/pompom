@@ -76,7 +76,7 @@ model.fit <- uSEM(var.number, time.series, lag.order, verbose = FALSE, trim = TR
 
 
 ## ---- fig.width = 8, fig.height =6---------------------------------------
-beta.matrix <- parse.beta(p, model.fit, 1, matrix = TRUE) # parse temporal relations in matrix format
+beta.matrix <- parse.beta(var.number = p, model.fit = model.fit, lag.order = 1, matrix = TRUE) # parse temporal relations in matrix format
 
 plot_network_graph(beta.matrix$est, var.number)
 
@@ -105,7 +105,14 @@ threshold <- .01 # setting threshold for approximate asymptote (iRAM calculation
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
 # ponit estimate of iRAM 
-point.estimate.iRAM <- iRAM(model.fit, beta = NULL, var.number, lag.order, boot = F)
+point.estimate.iRAM <- iRAM(model.fit, 
+                            beta = NULL, 
+                            var.number, 
+                            lag.order, 
+                            threshold = threshold,
+                            boot = FALSE, 
+                            replication = replication,
+                            steps= steps)
 
 point.estimate.iRAM$recovery.time 
 # point.estimate.iRAM$time.series.data
