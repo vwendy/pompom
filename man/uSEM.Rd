@@ -4,7 +4,11 @@
 \alias{uSEM}
 \title{Fit a multivariate time series with uSEM (unified Structural Equation Model).}
 \usage{
-uSEM(var.number, data, lag.order = 1, verbose = FALSE, trim = FALSE)
+uSEM(var.number,
+     data,
+     lag.order = 1,
+     verbose = FALSE,
+     trim = FALSE)
 }
 \arguments{
 \item{var.number}{number of variables in the time series}
@@ -26,6 +30,15 @@ Fit a multivariate time series with uSEM (unified Structural Equation Model).
 \details{
 The purpose of uSEM is to quantify the temporal relations (both contemporaneous and lag-1) between
 variables. Model specification and estimation can be found in the references.
+}
+\examples{
+\donttest{
+model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
+model.fit
+beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
+beta.matrix
+}
+
 }
 \references{
 Kim, J., Zhu, W., Chang, L., Bentler, P. M., & Ernst, T. (2007). Unified Structural Equation Modeling Approach for the Analysis of Multisubject, Multivariate Functional MRI Data. Human Brain Mapping, 93, 85–93. doi:10.1002/hbm.20259
