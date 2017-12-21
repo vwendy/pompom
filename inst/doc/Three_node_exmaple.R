@@ -3,7 +3,7 @@ library(pompom)
 library(ggplot2)
 library(qgraph)
 require(reshape2)
-set.seed(1234)
+set.seed(1234) 
 
 ## ---- warning = FALSE----------------------------------------------------
 
