@@ -23,8 +23,15 @@ Parse the beta from model fit object
 }
 \examples{
 \donttest{
-model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
-beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
+model.fit <- uSEM(var.number = 3,
+                 data = simts,
+                 lag.order = 1,
+                 verbose = FALSE,
+                 trim = TRUE)
+beta.matrix <- parse.beta(var.number = 3,
+                         model.fit = model.fit,
+                         lag.order = 1,
+                         matrix = TRUE)
 beta.matrix
 }
 

@@ -1,6 +1,7 @@
 
-#' The true beta matrix (6 by 6) used in simulation
-#'true.beta <-  matrix(c(0,0,0,0,0,0,
+#' The true beta matrix (6 by 6) used in simulation.
+#'
+#' @details true.beta <-  matrix(c(0,0,0,0,0,0,
 #'                       0,0,0,0,0,0,
 #'                       0,0,0,0,0,0,
 #'                       0.2,0,0.25,0,0,0.6,
@@ -15,9 +16,6 @@
 #' @docType data
 #'
 #' @usage true.beta
-#'
-#'
-#' @keywords true.beta
 #'
 #' @examples
 #' data(true.beta)

@@ -12,9 +12,17 @@ W2E <-function(x)   {
 #'
 #' @examples
 #' \donttest{
-#'model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
-#'beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
-#'plot_network_graph(beta = beta.matrix, var.number= 3)
+#'model.fit <- uSEM(var.number = 3,
+#'                  data = simts,
+#'                  lag.order = 1,
+#'                  verbose = FALSE,
+#'                  trim = TRUE)
+#'beta.matrix <- parse.beta(var.number = 3,
+#'                          model.fit = model.fit,
+#'                          lag.order = 1,
+#'                          matrix = TRUE)
+#'plot_network_graph(beta = beta.matrix$est,
+#'                   var.number = 3)
 #' }
 #'
 #'
@@ -66,39 +74,49 @@ plot_network_graph <- function(beta, var.number)
 #'# Similar to iRAM calculation, the corresponding plots of time profiles can be produced,
 #'# once the time profiles data is calculated by impulse response analysis.
 #'
-#'model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
-#'beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
-#'point.estimate.iRAM <- iRAM(model.fit,
+#'model.fit <- uSEM(var.number = 3,
+#'                  data = simts,
+#'                  lag.order = 1,
+#'                  verbose = FALSE,
+#'                  trim = TRUE)
+#'beta.matrix <- parse.beta(var.number = 3,
+#'                          model.fit = model.fit,
+#'                          lag.order = 1,
+#'                          matrix = TRUE)
+#'point.estimate.iRAM <- iRAM(model.fit = model.fit,
 #'                            beta = NULL,
-#'                            var.number,
-#'                            lag.order,
-#'                            threshold = threshold,
+#'                            var.number = 3,
+#'                            lag.order = 1,
+#'                            threshold = .01,
 #'                            boot = FALSE,
-#'                            replication = replication,
-#'                            steps= steps)
+#'                            replication = 200,
+#'                            steps= 100)
 #'
 #'point.estimate.iRAM$recovery.time
-#'plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data, ,
+#'plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data,
+#'                  var.number = 3,
 #'                  threshold= .01,
 #'                  xupper = 20)
 #'
 #'# bootstrap version
-#'boot.iRAM <- iRAM(model.fit,
+#'boot.iRAM <- iRAM(model.fit = model.fit,
 #'                  beta = NULL,
-#'                  var.number,
-#'                  lag.order,
-#'                  threshold = threshold,
+#'                  var.number = 3,
+#'                  lag.order = 1,
+#'                  threshold = .01,
 #'                  boot = TRUE,
-#'                  replication = replication,
-#'                  steps= steps)
+#'                  replication = 200,
+#'                  steps= 100)
 #'
 #'
-#'plot_time_profile(time.series.data = boot.iRAM$time.profile.data, ,
+#'plot_time_profile(time.series.data = boot.iRAM$time.profile.data,
+#'                  var.number = 3,
 #'                  threshold= .01,
 #'                  xupper = 20)
 #' }
 #'
 #' @param time.series.data data of impulse response in long format
+#' @param var.number number of variables in the time-series
 #' @param threshold threshold of asymptote of equilibrium
 #' @param xupper upper limit of x-axis
 #'
@@ -108,6 +126,7 @@ plot_network_graph <- function(beta, var.number)
 #'
 
 plot_time_profile <- function(time.series.data,
+                              var.number,
                               threshold = .01,
                               xupper = 20)
 {
@@ -178,18 +197,27 @@ plot_time_profile <- function(time.series.data,
 #'
 #' @examples
 #' \donttest{
-#'model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
-#'beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
+#'model.fit <- uSEM(var.number = 3,
+#'                  data = simts,
+#'                  lag.order = 1,
+#'                  verbose = FALSE,
+#'                  trim = TRUE)
+#'beta.matrix <- parse.beta(var.number = 3,
+#'                          model.fit = model.fit,
+#'                          lag.order = 1,
+#'                          matrix = TRUE)
 #'# bootstrap version
-#'boot.iRAM <- iRAM(model.fit,
+#'boot.iRAM <- iRAM(model.fit = model.fit,
 #'                  beta = NULL,
-#'                  var.number,
-#'                  lag.order,
-#'                  threshold = threshold,
+#'                  var.number = 3,
+#'                  lag.order = 1,
+#'                  threshold = .01,
 #'                  boot = TRUE,
-#'                  replication = replication,
-#'                  steps= steps)
+#'                  replication = 200,
+#'                  steps= 100)
+#'
 #'plot_iRAM_dist(boot.iRAM$recovery.time.reps)
+#'
 #' }
 #'
 #' @export

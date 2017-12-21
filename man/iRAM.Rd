@@ -35,10 +35,10 @@ Generate iRAM (impulse response anlaysis metric) from model fit.
 # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
 
 model.fit <- uSEM(var.number = 3,
-                 data = simts,
-                 lag.order = 1,
-                 verbose = FALSE,
-                 trim = TRUE)
+                  data = simts,
+                  lag.order = 1,
+                  verbose = FALSE,
+                  trim = TRUE)
 
 # point estimation version of iRAM
 point.iRAM <- iRAM(model.fit = model.fit,
@@ -50,6 +50,7 @@ point.iRAM <- iRAM(model.fit = model.fit,
     replication = 200,
     steps = 100
     )
+point.iRAM$recovery.time
 
 # bootstrap version of iRAM
 boot.iRAM <- iRAM(model.fit = model.fit,
@@ -61,8 +62,11 @@ boot.iRAM <- iRAM(model.fit = model.fit,
     replication = 200,
     steps = 100
     )
-
+boot.iRAM$mean
 }
 
 
+}
+\references{
+Lütkepohl, H. (2007). New introduction to multiple time-series analysis. Berlin: Springer.
 }

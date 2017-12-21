@@ -33,9 +33,16 @@ variables. Model specification and estimation can be found in the references.
 }
 \examples{
 \donttest{
-model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
+model.fit <- uSEM(var.number = 3,
+                 data = simts,
+                 lag.order = 1,
+                 verbose = FALSE,
+                 trim = TRUE)
 model.fit
-beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
+beta.matrix <- parse.beta(var.number = 3,
+                         model.fit = model.fit,
+                         lag.order = 1,
+                         matrix = TRUE)
 beta.matrix
 }
 

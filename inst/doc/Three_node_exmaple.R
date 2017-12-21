@@ -56,7 +56,7 @@ time.series.long <- melt(time.series, id="time")  ## convert to long format
 ggplot(data=time.series.long,
        aes(x=time, y=value, colour=variable)) +
   geom_line() + 
-  facet_wrap( ~ variable  , nrow = p * 2) +
+  facet_wrap( ~ variable  ,  ncol = 1) +
   scale_y_continuous(breaks = seq(0, 100, by = 50)) + 
   theme(
     strip.background = element_blank(),
@@ -72,13 +72,21 @@ time.series$time <- NULL
 var.number <- p # number of variables
 lag.order <- 1 # lag order of the model
 
-model.fit <- uSEM(var.number, time.series, lag.order, verbose = FALSE, trim = TRUE)
+model.fit <- uSEM(var.number, 
+                  time.series,
+                  lag.order, 
+                  verbose = FALSE, 
+                  trim = TRUE)
 
 
 ## ---- fig.width = 8, fig.height =6---------------------------------------
-beta.matrix <- parse.beta(var.number = p, model.fit = model.fit, lag.order = 1, matrix = TRUE) # parse temporal relations in matrix format
+beta.matrix <- parse.beta(var.number = p, 
+                          model.fit = model.fit, 
+                          lag.order = 1, 
+                          matrix = TRUE) # parse temporal relations in matrix format
 
-plot_network_graph(beta.matrix$est, var.number)
+plot_network_graph(beta.matrix$est, 
+                   var.number)
 
 
 ## ---- warning = FALSE----------------------------------------------------
@@ -86,7 +94,9 @@ beta.matrix$est
 beta.matrix$se
 
 ## ------------------------------------------------------------------------
-mdl <- model.summary(model.fit, var.number, lag.order)
+mdl <- model.summary(model.fit, 
+                     var.number, 
+                     lag.order)
 
 mdl$beta
 mdl$beta.se
@@ -94,7 +104,7 @@ mdl$psi
 
 ## ------------------------------------------------------------------------
 mdl$cfi
-mdl$nfi
+mdl$tli
 mdl$rmsea
 mdl$srmr
 
@@ -119,6 +129,7 @@ point.estimate.iRAM$recovery.time
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
 plot_time_profile(point.estimate.iRAM$time.series.data, 
+                  var.number = 3,
                   threshold = threshold, 
                   xupper = 50)
 
@@ -139,7 +150,10 @@ bootstrap.iRAM$upper
 bootstrap.iRAM$lower
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
-plot_time_profile(bootstrap.iRAM$time.profile.data, threshold = threshold, xupper = 25)
+plot_time_profile(bootstrap.iRAM$time.profile.data, 
+                  var.number = 3,
+                  threshold = threshold, 
+                  xupper = 25)
 
 
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
