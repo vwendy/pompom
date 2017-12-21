@@ -1,5 +1,5 @@
 # pompom
-R package to perform time-series analysis. 
+R package to perform time-series analysis and guage the temporal influence from one variable to another. 
 
 We created an R package named "pompom" (pompom is the initials of person-oriented modeling and perturbation on the model), and we will use the functions in "pompom" to compute iRAM (impulse response analysis metric) in this pacakge. 
 
