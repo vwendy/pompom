@@ -439,13 +439,29 @@ iRAM <- function(model.fit,
   {
     # this is when you only have true beta matrix, no model fit
     # you can use the beta matrix (second parameter) to get the true value of iRAM
+    # rt <- compute.recovery.time.from.beta(beta,
+    #                                       var.number,
+    #                                       lag.order,
+    #                                       threshold ,
+    #                                       replication,
+    #                                       steps)
+    # return(list(recovery.time = rt))
+
+    # beta.matrix <- beta
+
+    time.series.data <- impulse.response(var.number,
+                                         lag.order,
+                                         steps = steps,
+                                         beta)
+    # print(beta.matrix)
     rt <- compute.recovery.time.from.beta(beta,
                                           var.number,
                                           lag.order,
                                           threshold ,
                                           replication,
                                           steps)
-    return(list(recovery.time = rt))
+    return(list(recovery.time = rt,
+                time.series.data = time.series.data))
   }
 }
 

@@ -117,8 +117,8 @@ threshold <- .01 # setting threshold for approximate asymptote (iRAM calculation
 # ponit estimate of iRAM 
 point.estimate.iRAM <- iRAM(model.fit, 
                             beta = NULL, 
-                            var.number, 
-                            lag.order, 
+                            var.number = var.number, 
+                            lag.order = lag.order, 
                             threshold = threshold,
                             boot = FALSE, 
                             replication = replication,
@@ -137,8 +137,8 @@ plot_time_profile(point.estimate.iRAM$time.series.data,
 
 bootstrap.iRAM <- iRAM(model.fit, 
                        beta = NULL, 
-                       var.number, 
-                       lag.order,
+                       var.number = var.number, 
+                       lag.order = lag.order,
                        threshold = threshold,
                        boot = TRUE, 
                        replication = replication,
@@ -160,13 +160,24 @@ plot_time_profile(bootstrap.iRAM$time.profile.data,
 plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 
 ## ---- warning = FALSE----------------------------------------------------
-# change iRAM into taking beta.matrix as a parameter, so that you can use iRAM to calculate
-true.iRAM <- iRAM(model.fit= NULL,
-                  true.beta,
-                  var.number, 
-                  lag.order, 
-                  boot = F)
+true.iRAM <- iRAM(
+  model.fit= NULL,
+  beta = true.beta, 
+  var.number = var.number, 
+  lag.order = lag.order, 
+  threshold = threshold,
+  boot = FALSE, 
+  replication = replication,
+  steps= steps)
 
+
+plot_time_profile(true.iRAM$time.series.data, 
+                  var.number = 3,
+                  threshold = threshold, 
+                  xupper = 25)
+
+
+## ------------------------------------------------------------------------
 
 sum.diff <- 0
 for (row in 1:nrow(bootstrap.iRAM$recovery.time))

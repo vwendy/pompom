@@ -293,8 +293,8 @@ threshold &lt;-<span class="st"> </span>.<span class="dv">01</span> <span class=
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ponit estimate of iRAM </span>
 point.estimate.iRAM &lt;-<span class="st"> </span><span class="kw">iRAM</span>(model.fit, 
                             <span class="dt">beta =</span> <span class="ot">NULL</span>, 
-                            var.number, 
-                            lag.order, 
+                            <span class="dt">var.number =</span> var.number, 
+                            <span class="dt">lag.order =</span> lag.order, 
                             <span class="dt">threshold =</span> threshold,
                             <span class="dt">boot =</span> <span class="ot">FALSE</span>, 
                             <span class="dt">replication =</span> replication,
@@ -320,8 +320,8 @@ point.estimate.iRAM<span class="op">$</span>recovery.time </code></pre></div>
 <h4>Bootstraped iRAM</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bootstrap.iRAM &lt;-<span class="st"> </span><span class="kw">iRAM</span>(model.fit, 
                        <span class="dt">beta =</span> <span class="ot">NULL</span>, 
-                       var.number, 
-                       lag.order,
+                       <span class="dt">var.number =</span> var.number, 
+                       <span class="dt">lag.order =</span> lag.order,
                        <span class="dt">threshold =</span> threshold,
                        <span class="dt">boot =</span> <span class="ot">TRUE</span>, 
                        <span class="dt">replication =</span> replication,
@@ -362,15 +362,24 @@ bootstrap.iRAM<span class="op">$</span>mean</code></pre></div>
 </div>
 <div id="check-accuracy-of-iram-estimation" class="section level4">
 <h4>Check accuracy of iRAM estimation</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># change iRAM into taking beta.matrix as a parameter, so that you can use iRAM to calculate</span>
-true.iRAM &lt;-<span class="st"> </span><span class="kw">iRAM</span>(<span class="dt">model.fit=</span> <span class="ot">NULL</span>,
-                  true.beta,
-                  var.number, 
-                  lag.order, 
-                  <span class="dt">boot =</span> F)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">true.iRAM &lt;-<span class="st"> </span><span class="kw">iRAM</span>(
+  <span class="dt">model.fit=</span> <span class="ot">NULL</span>,
+  <span class="dt">beta =</span> true.beta, 
+  <span class="dt">var.number =</span> var.number, 
+  <span class="dt">lag.order =</span> lag.order, 
+  <span class="dt">threshold =</span> threshold,
+  <span class="dt">boot =</span> <span class="ot">FALSE</span>, 
+  <span class="dt">replication =</span> replication,
+  <span class="dt">steps=</span> steps)
 
 
-sum.diff &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="kw">plot_time_profile</span>(true.iRAM<span class="op">$</span>time.series.data, 
+                  <span class="dt">var.number =</span> <span class="dv">3</span>,
+                  <span class="dt">threshold =</span> threshold, 
+                  <span class="dt">xupper =</span> <span class="dv">25</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sum.diff &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(bootstrap.iRAM<span class="op">$</span>recovery.time))
 {
   sum.diff &lt;-<span class="st"> </span>sum.diff <span class="op">+</span><span class="st"> </span>(bootstrap.iRAM<span class="op">$</span>recovery.time.reps[row,] <span class="op">-</span>
