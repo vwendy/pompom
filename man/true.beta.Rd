@@ -3,7 +3,7 @@
 \docType{data}
 \name{true.beta}
 \alias{true.beta}
-\title{The true beta matrix (6 by 6) used in simulation
+\title{The true beta matrix (6 by 6) used in simulation.
 true.beta <-  matrix(c(0,0,0,0,0,0,
                       0,0,0,0,0,0,
                       0,0,0,0,0,0,
@@ -18,7 +18,7 @@ true.beta <-  matrix(c(0,0,0,0,0,0,
 true.beta
 }
 \description{
-The true beta matrix (6 by 6) used in simulation
+The true beta matrix (6 by 6) used in simulation.
 true.beta <-  matrix(c(0,0,0,0,0,0,
                       0,0,0,0,0,0,
                       0,0,0,0,0,0,
@@ -35,4 +35,4 @@ data(true.beta)
 true.beta
  }
 }
-\keyword{true.beta}
+\keyword{datasets}

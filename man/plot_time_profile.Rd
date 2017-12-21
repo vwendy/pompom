@@ -33,7 +33,7 @@ point.estimate.iRAM <- iRAM(model.fit,
                            steps= steps)
 
 point.estimate.iRAM$recovery.time
-plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data, ,
+plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data,
                  threshold= .01,
                  xupper = 20)
 
@@ -48,7 +48,7 @@ boot.iRAM <- iRAM(model.fit,
                  steps= steps)
 
 
-plot_time_profile(time.series.data = boot.iRAM$time.profile.data, ,
+plot_time_profile(time.series.data = boot.iRAM$time.profile.data,
                  threshold= .01,
                  xupper = 20)
 }

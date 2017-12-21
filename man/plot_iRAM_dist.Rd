@@ -17,14 +17,14 @@ Plot distribution of recovery time based on bootstrapped version of iRAM
 model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
 beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
 # bootstrap version
-boot.iRAM <- iRAM(model.fit,
+boot.iRAM <- iRAM(model.fit = model.fit,
                  beta = NULL,
-                 var.number,
-                 lag.order,
-                 threshold = threshold,
+                 var.number = 3,
+                 lag.order = 1,
+                 threshold = .01,
                  boot = TRUE,
-                 replication = replication,
-                 steps= steps)
+                 replication = 200,
+                 steps= 100)
 plot_iRAM_dist(boot.iRAM$recovery.time.reps)
 }
 

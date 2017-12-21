@@ -24,7 +24,7 @@ simts.long <- melt(simts, id="time")  ## convert to long format
 ggplot(data=simts.long,
       aes(x=time, y=value, colour=variable)) +
  geom_line() +
- facet_wrap( ~ variable) +
+ facet_wrap( ~ variable, ncol = 1) +
  theme(
    strip.background = element_blank(),
    strip.text.x = element_blank(),
@@ -34,4 +34,4 @@ ggplot(data=simts.long,
  )+ylim(-1,1)
  }
 }
-\keyword{simts}
+\keyword{datasets}

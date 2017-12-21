@@ -34,7 +34,7 @@ Provide model summary.
 \details{
 Model fit criteria: 3 out of 4 rule,
 meaning 3 out of 4 critea should be satisfied,
-including CFI and NFI should be greater than 0.95,
+including CFI and TLI should be greater than 0.95,
 RMSEA and SRMR should be less than 0.08.
 }
 \examples{
@@ -50,7 +50,7 @@ mdl$beta
 mdl$beta.se
 mdl$psi
 mdl$cfi
-mdl$nfi
+mdl$tli
 mdl$rmsea
 mdl$srmr
 }

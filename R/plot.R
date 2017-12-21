@@ -14,7 +14,7 @@ W2E <-function(x)   {
 #' \donttest{
 #'model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
 #'beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
-#'plot_network_graph(beta = beta.matrix, var.number= 3)
+#'plot_network_graph(beta = beta.matrix$est, var.number = 3)
 #' }
 #'
 #'
@@ -78,7 +78,7 @@ plot_network_graph <- function(beta, var.number)
 #'                            steps= steps)
 #'
 #'point.estimate.iRAM$recovery.time
-#'plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data, ,
+#'plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data,
 #'                  threshold= .01,
 #'                  xupper = 20)
 #'
@@ -93,7 +93,7 @@ plot_network_graph <- function(beta, var.number)
 #'                  steps= steps)
 #'
 #'
-#'plot_time_profile(time.series.data = boot.iRAM$time.profile.data, ,
+#'plot_time_profile(time.series.data = boot.iRAM$time.profile.data,
 #'                  threshold= .01,
 #'                  xupper = 20)
 #' }
@@ -181,14 +181,14 @@ plot_time_profile <- function(time.series.data,
 #'model.fit <- uSEM(var.number = 3,data = simts,lag.order = 1,verbose = FALSE,trim = TRUE)
 #'beta.matrix <- parse.beta(var.number = 3, model.fit = model.fit, lag.order = 1, matrix = TRUE)
 #'# bootstrap version
-#'boot.iRAM <- iRAM(model.fit,
+#'boot.iRAM <- iRAM(model.fit = model.fit,
 #'                  beta = NULL,
-#'                  var.number,
-#'                  lag.order,
-#'                  threshold = threshold,
+#'                  var.number = 3,
+#'                  lag.order = 1,
+#'                  threshold = .01,
 #'                  boot = TRUE,
-#'                  replication = replication,
-#'                  steps= steps)
+#'                  replication = 200,
+#'                  steps= 100)
 #'plot_iRAM_dist(boot.iRAM$recovery.time.reps)
 #' }
 #'

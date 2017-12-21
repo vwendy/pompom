@@ -50,6 +50,7 @@ point.iRAM <- iRAM(model.fit = model.fit,
     replication = 200,
     steps = 100
     )
+point.iRAM$recovery.time
 
 # bootstrap version of iRAM
 boot.iRAM <- iRAM(model.fit = model.fit,
@@ -61,7 +62,7 @@ boot.iRAM <- iRAM(model.fit = model.fit,
     replication = 200,
     steps = 100
     )
-
+boot.iRAM$mean
 }
 
 
