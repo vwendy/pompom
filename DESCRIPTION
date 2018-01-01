@@ -8,7 +8,7 @@ Description: An implementation of a hybrid method of person-oriented method and 
     Kim, J., Zhu, W., Chang, L., Bentler, P. M., & Ernst, T. (2007) <doi:10.1002/hbm.20259>. 
     Gates, K. M., Molenaar, P. C. M., Hillary, F. G., Ram, N., & Rovine, M. J. (2010) <doi:10.1016/j.neuroimage.2009.12.117>. 
     Gates, K. M., & Molenaar, P. C. M. (2012) <doi:10.1016/j.neuroimage.2012.06.026>. 
-    Lutkepohl, H. (2007) <ISBN:3540262393>.
+    Lutkepohl, H. (2007, ISBN:3540262393).
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
