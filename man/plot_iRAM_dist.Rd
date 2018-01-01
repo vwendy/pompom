@@ -13,28 +13,13 @@ plot_iRAM_dist(recovery.time.reps)
 Plot distribution of recovery time based on bootstrapped version of iRAM
 }
 \examples{
+\dontshow{
+data(bootstrap.iRAM)
+plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)#'
+}
 \donttest{
-model.fit <- uSEM(var.number = 3,
-                 data = simts,
-                 lag.order = 1,
-                 verbose = FALSE,
-                 trim = TRUE)
-beta.matrix <- parse.beta(var.number = 3,
-                         model.fit = model.fit,
-                         lag.order = 1,
-                         matrix = TRUE)
-# bootstrap version
-boot.iRAM <- iRAM(model.fit = model.fit,
-                 beta = NULL,
-                 var.number = 3,
-                 lag.order = 1,
-                 threshold = .01,
-                 boot = TRUE,
-                 replication = 200,
-                 steps= 100)
-
-plot_iRAM_dist(boot.iRAM$recovery.time.reps)
-
+data(bootstrap.iRAM)
+plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)#'
 }
 
 }

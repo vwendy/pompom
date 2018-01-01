@@ -24,8 +24,12 @@ true.beta <-  matrix(c(0,0,0,0,0,0,
 }
 \examples{
 data(true.beta)
+\dontshow{
+true.beta
+ }
 \donttest{
 true.beta
  }
+
 }
 \keyword{datasets}

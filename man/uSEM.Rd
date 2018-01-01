@@ -32,6 +32,14 @@ The purpose of uSEM is to quantify the temporal relations (both contemporaneous 
 variables. Model specification and estimation can be found in the references.
 }
 \examples{
+\dontshow{
+model.fit <- uSEM(var.number = 3,
+                 data = simts,
+                 lag.order = 1,
+                 verbose = FALSE,
+                 trim = TRUE)
+model.fit
+}
 \donttest{
 model.fit <- uSEM(var.number = 3,
                  data = simts,

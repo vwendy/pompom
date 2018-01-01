@@ -38,6 +38,20 @@ including CFI and TLI should be greater than 0.95,
 RMSEA and SRMR should be less than 0.08.
 }
 \examples{
+\dontshow{
+data(model.fit)
+
+mdl <- model.summary(model.fit,
+                     var.number = 3,
+                     lag.order = 1)
+mdl$beta
+mdl$beta.se
+mdl$psi
+mdl$cfi
+mdl$tli
+mdl$rmsea
+mdl$srmr
+}
 \donttest{
 mdl <- model.summary(model.fit = uSEM(var.number = 3,
                                       data = simts,
@@ -54,4 +68,5 @@ mdl$tli
 mdl$rmsea
 mdl$srmr
 }
+
 }
