@@ -104,6 +104,14 @@ find.path.to.free.up <- function(beta.mi, model.syntax, var.number){
 #'
 #'
 #' @examples
+#' \dontshow{
+#'model.fit <- uSEM(var.number = 3,
+#'                  data = simts,
+#'                  lag.order = 1,
+#'                  verbose = FALSE,
+#'                  trim = TRUE)
+#'model.fit
+#' }
 #' \donttest{
 #'model.fit <- uSEM(var.number = 3,
 #'                  data = simts,
@@ -331,6 +339,14 @@ parse.beta.as.matrix <- function(var.number, model.fit, lag.order)
 #'
 #'
 #' @examples
+#' \dontshow{
+#' data(model.fit)
+#'beta.matrix <- parse.beta(var.number = 3,
+#'                          model.fit = model.fit,
+#'                          lag.order = 1,
+#'                          matrix = TRUE)
+#'beta.matrix
+#' }
 #' \donttest{
 #'model.fit <- uSEM(var.number = 3,
 #'                  data = simts,
@@ -424,6 +440,20 @@ parse.psi <- function(var.number, model.fit, lag.order) # pass the modelfit (lav
 #'RMSEA and SRMR should be less than 0.08.
 #'
 #'@examples
+#' \dontshow{
+#' data(model.fit)
+#'
+#' mdl <- model.summary(model.fit,
+#'                      var.number = 3,
+#'                      lag.order = 1)
+#' mdl$beta
+#' mdl$beta.se
+#' mdl$psi
+#' mdl$cfi
+#' mdl$tli
+#' mdl$rmsea
+#' mdl$srmr
+#' }
 #' \donttest{
 #' mdl <- model.summary(model.fit = uSEM(var.number = 3,
 #'                                       data = simts,
@@ -440,6 +470,7 @@ parse.psi <- function(var.number, model.fit, lag.order) # pass the modelfit (lav
 #' mdl$rmsea
 #' mdl$srmr
 #' }
+#'
 #'@export
 #'
 #'

@@ -265,47 +265,6 @@ iRAM.boot <- function(model.fit,
       }
     }
   }
-  # # plot time profiles
-  # if (plot.time.profile == TRUE)
-  # {
-  #   simulation.data.plot <- data.frame(simulation.data)
-  #   simulation.data.plot <- melt(simulation.data.plot, id = c("repnum", "steps"))
-  #   # print(head(simulation.data.plot))
-  #
-  #   print(ggplot(data = simulation.data.plot,
-  #                aes(x = steps, y = value, group = repnum, color = variable))+
-  #           geom_line(alpha = 0.5)+
-  #           geom_hline(yintercept = threshold, alpha = 0.5) +
-  #           geom_hline(yintercept = -threshold, alpha = 0.5) +
-  #           facet_wrap(~variable))
-  #         # +            xlim(0,50))
-  # }
-
-  # plot the distribution of recovery time
-  # if (plot.histogram == TRUE)
-  # {
-  #
-  #   recovery.time.reps.plot <- data.frame(recovery.time.reps)
-  #
-  #   column.names <- NULL
-  #   for (from in 1:var.number)
-  #   {
-  #     for (to in 1:var.number)
-  #     {
-  #       column.names <- cbind(column.names,paste("from.", from, ".to.", to, sep = ""))
-  #     }
-  #   }
-  #   # print(column.names)
-  #   names(recovery.time.reps.plot) <- column.names
-  #
-  #   recovery.time.reps.plot$index <- 1:replication
-  #   recovery.time.reps.plot <- melt(recovery.time.reps.plot, id = "index")
-  #
-  #   print(ggplot(data = recovery.time.reps.plot, aes(x = value))+
-  #     geom_histogram()+
-  #     facet_wrap(~variable))
-  # }
-
   # compute mean and confidence interval by each node-to-node cell
   recovery.time.mean <- colMeans(recovery.time.reps)
   for (col in 1:(var.number*var.number))
@@ -353,26 +312,27 @@ iRAM.boot <- function(model.fit,
 #' @references  Lütkepohl, H. (2007). New introduction to multiple time-series analysis. Berlin: Springer.
 #'
 #' @examples
-#' \donttest{
+#' \dontshow{
 #' # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
 #'
-#' model.fit <- uSEM(var.number = 3,
-#'                   data = simts,
-#'                   lag.order = 1,
-#'                   verbose = FALSE,
-#'                   trim = TRUE)
+#' data(model.fit) # evoke the model fit result from simulated time-series
 #'
-#' # point estimation version of iRAM
-#' point.iRAM <- iRAM(model.fit = model.fit,
+#' # bootstrap version of iRAM
+#' boot.iRAM <- iRAM(model.fit = model.fit,
 #'     beta = NULL,
 #'     var.number = 3,
 #'     lag.order = 1,
 #'     threshold = 0.01,
-#'     boot = FALSE,
-#'     replication = 200,
-#'     steps = 100
+#'     boot = TRUE,
+#'     replication = 50, # default replication is 200, reduced to 50 to shorten running time
+#'     steps = 30 # default steps is 100, reduced to 30 to shorten running time
 #'     )
-#'point.iRAM$recovery.time
+#'boot.iRAM$mean
+#' }
+#' \donttest{
+#' # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
+#'
+#' data(model.fit) # evoke the model fit result from simulated time-series
 #'
 #' # bootstrap version of iRAM
 #' boot.iRAM <- iRAM(model.fit = model.fit,

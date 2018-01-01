@@ -19,7 +19,12 @@
 #'
 #' @examples
 #' data(true.beta)
+#' \dontshow{
+#'true.beta
+#'  }
 #' \donttest{
 #'true.beta
 #'  }
+#'
+
 "true.beta"
