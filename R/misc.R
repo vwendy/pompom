@@ -21,6 +21,6 @@ globalVariables(c("value",
                   "true.beta",
                   "estimated.beta",
                   "bootstrap.iRAM",
-                  "model.fit"),
+                  "usemmodelfit"),
                 "pompom", add = TRUE)
 

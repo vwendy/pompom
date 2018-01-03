@@ -82,9 +82,9 @@ plot_network_graph <- function(beta, var.number)
 #'# Similar to iRAM calculation, the corresponding plots of time profiles can be produced,
 #'# once the time profiles data is calculated by impulse response analysis.
 #'
-#'data(model.fit)
+#'data(usemmodelfit)
 #'
-#'point.estimate.iRAM <- iRAM(model.fit = model.fit,
+#'point.estimate.iRAM <- iRAM(model.fit = usemmodelfit,
 #'                            beta = NULL,
 #'                            var.number = 3,
 #'                            lag.order = 1,
@@ -100,7 +100,7 @@ plot_network_graph <- function(beta, var.number)
 #'                  xupper = 20)
 #'
 #'# bootstrap version
-#'boot.iRAM <- iRAM(model.fit = model.fit,
+#'boot.iRAM <- iRAM(model.fit = usemmodelfit,
 #'                  beta = NULL,
 #'                  var.number = 3,
 #'                  lag.order = 1,
@@ -200,11 +200,11 @@ plot_time_profile <- function(time.series.data,
 #' @examples
 #' \dontshow{
 #' data(bootstrap.iRAM)
-#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)#'
+#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 #' }
 #' \donttest{
 #' data(bootstrap.iRAM)
-#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)#'
+#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 #' }
 #'
 #' @export
