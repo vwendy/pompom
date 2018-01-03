@@ -12,12 +12,12 @@ model.fit
 Model fitbased on similated time-series by uSEM.
 }
 \examples{
-data(model.fit)
+
 \dontshow{
-model.fit
+data(model.fit)
  }
 \donttest{
-model.fit
+data(model.fit)
  }
 
 }
