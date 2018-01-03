@@ -362,7 +362,6 @@ parse.beta.as.matrix <- function(var.number, model.fit, lag.order)
 #'
 #' @export
 #'
-# parse.beta <- function(var.number, model.fit, lag.order, sigonly = F, matrix = F)
 parse.beta <- function(var.number, model.fit, lag.order, matrix = F)
 {
   if (matrix)
