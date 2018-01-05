@@ -14,3 +14,17 @@ plot_network_graph(beta, var.number)
 \description{
 Plot the network graph
 }
+\examples{
+\dontshow{
+data(true.beta)
+plot_network_graph(beta = true.beta,
+                  var.number = 3)
+}
+
+\donttest{
+data(true.beta)
+plot_network_graph(beta = true.beta,
+                  var.number = 3)
+}
+
+}
