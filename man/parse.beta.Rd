@@ -23,9 +23,9 @@ Parse the beta from model fit object
 }
 \examples{
 \dontshow{
-data(model.fit)
+data(usemmodelfit)
 beta.matrix <- parse.beta(var.number = 3,
-                         model.fit = model.fit,
+                         model.fit = usemmodelfit,
                          lag.order = 1,
                          matrix = TRUE)
 beta.matrix

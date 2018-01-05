@@ -39,9 +39,9 @@ RMSEA and SRMR should be less than 0.08.
 }
 \examples{
 \dontshow{
-data(model.fit)
+data(usemmodelfit)
 
-mdl <- model.summary(model.fit,
+mdl <- model.summary(model.fit = usemmodelfit,
                      var.number = 3,
                      lag.order = 1)
 mdl$beta

@@ -34,10 +34,10 @@ Generate iRAM (impulse response anlaysis metric) from model fit.
 \dontshow{
 # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
 
-data(model.fit) # evoke the model fit result from simulated time-series
+data(usemmodelfit) # evoke the model fit result from simulated time-series
 
 # bootstrap version of iRAM
-boot.iRAM <- iRAM(model.fit = model.fit,
+boot.iRAM <- iRAM(model.fit = usemmodelfit,
     beta = NULL,
     var.number = 3,
     lag.order = 1,
@@ -51,10 +51,10 @@ boot.iRAM$mean
 \donttest{
 # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
 
-data(model.fit) # evoke the model fit result from simulated time-series
+data(usemmodelfit) # evoke the model fit result from simulated time-series
 
 # bootstrap version of iRAM
-boot.iRAM <- iRAM(model.fit = model.fit,
+boot.iRAM <- iRAM(model.fit = usemmodelfit,
     beta = NULL,
     var.number = 3,
     lag.order = 1,

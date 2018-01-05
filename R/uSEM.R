@@ -340,9 +340,9 @@ parse.beta.as.matrix <- function(var.number, model.fit, lag.order)
 #'
 #' @examples
 #' \dontshow{
-#' data(model.fit)
+#' data(usemmodelfit)
 #'beta.matrix <- parse.beta(var.number = 3,
-#'                          model.fit = model.fit,
+#'                          model.fit = usemmodelfit,
 #'                          lag.order = 1,
 #'                          matrix = TRUE)
 #'beta.matrix
@@ -440,9 +440,9 @@ parse.psi <- function(var.number, model.fit, lag.order) # pass the modelfit (lav
 #'
 #'@examples
 #' \dontshow{
-#' data(model.fit)
+#' data(usemmodelfit)
 #'
-#' mdl <- model.summary(model.fit,
+#' mdl <- model.summary(model.fit = usemmodelfit,
 #'                      var.number = 3,
 #'                      lag.order = 1)
 #' mdl$beta

@@ -36,9 +36,9 @@ plot_time_profile(time.series.data = bootstrap.iRAM$time.profile.data,
 # Similar to iRAM calculation, the corresponding plots of time profiles can be produced,
 # once the time profiles data is calculated by impulse response analysis.
 
-data(model.fit)
+data(usemmodelfit)
 
-point.estimate.iRAM <- iRAM(model.fit = model.fit,
+point.estimate.iRAM <- iRAM(model.fit = usemmodelfit,
                            beta = NULL,
                            var.number = 3,
                            lag.order = 1,
@@ -54,7 +54,7 @@ plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data,
                  xupper = 20)
 
 # bootstrap version
-boot.iRAM <- iRAM(model.fit = model.fit,
+boot.iRAM <- iRAM(model.fit = usemmodelfit,
                  beta = NULL,
                  var.number = 3,
                  lag.order = 1,
