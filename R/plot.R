@@ -17,9 +17,6 @@ W2E <-function(x)   {
 #'
 #' @examples
 #' \dontshow{
-#'# Similar to iRAM calculation, the corresponding plots of time profiles can be produced,
-#'# once the time profiles data is calculated by impulse response analysis.
-#'
 #'data(bootstrap.iRAM)
 #'
 #'plot_time_profile(time.series.data = bootstrap.iRAM$time.profile.data,
@@ -29,43 +26,13 @@ W2E <-function(x)   {
 #' }
 #'
 #' \donttest{
-#'# Similar to iRAM calculation, the corresponding plots of time profiles can be produced,
-#'# once the time profiles data is calculated by impulse response analysis.
+#'data(bootstrap.iRAM)
 #'
-#'data(usemmodelfit)
-#'
-#'point.estimate.iRAM <- iRAM(model.fit = usemmodelfit,
-#'                            beta = NULL,
-#'                            var.number = 3,
-#'                            lag.order = 1,
-#'                            threshold = .01,
-#'                            boot = FALSE,
-#'                            replication = 200,
-#'                            steps= 100)
-#'
-#'point.estimate.iRAM$recovery.time
-#'plot_time_profile(time.series.data = point.estimate.iRAM$time.series.data,
+#'plot_time_profile(time.series.data = bootstrap.iRAM$time.profile.data,
 #'                  var.number = 3,
 #'                  threshold= .01,
 #'                  xupper = 20)
-#'
-#'# bootstrap version
-#'boot.iRAM <- iRAM(model.fit = usemmodelfit,
-#'                  beta = NULL,
-#'                  var.number = 3,
-#'                  lag.order = 1,
-#'                  threshold = .01,
-#'                  boot = TRUE,
-#'     replication = 200,
-#'     steps = 100
-#')
-#'
-#'
-#'plot_time_profile(time.series.data = boot.iRAM$time.profile.data,
-#'                  var.number = 3,
-#'                  threshold= .01,
-#'                  xupper = 20)
-#' }
+#'}
 #'
 #' @export
 #'

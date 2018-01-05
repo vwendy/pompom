@@ -119,11 +119,6 @@ find.path.to.free.up <- function(beta.mi, model.syntax, var.number){
 #'                  verbose = FALSE,
 #'                  trim = TRUE)
 #'model.fit
-#'beta.matrix <- parse.beta(var.number = 3,
-#'                          model.fit = model.fit,
-#'                          lag.order = 1,
-#'                          matrix = TRUE)
-#'beta.matrix
 #' }
 #'
 #'@export
@@ -348,13 +343,9 @@ parse.beta.as.matrix <- function(var.number, model.fit, lag.order)
 #'beta.matrix
 #' }
 #' \donttest{
-#'model.fit <- uSEM(var.number = 3,
-#'                  data = simts,
-#'                  lag.order = 1,
-#'                  verbose = FALSE,
-#'                  trim = TRUE)
+#' data(usemmodelfit)
 #'beta.matrix <- parse.beta(var.number = 3,
-#'                          model.fit = model.fit,
+#'                          model.fit = usemmodelfit,
 #'                          lag.order = 1,
 #'                          matrix = TRUE)
 #'beta.matrix
@@ -454,11 +445,9 @@ parse.psi <- function(var.number, model.fit, lag.order) # pass the modelfit (lav
 #' mdl$srmr
 #' }
 #' \donttest{
-#' mdl <- model.summary(model.fit = uSEM(var.number = 3,
-#'                                       data = simts,
-#'                                       lag.order = 1,
-#'                                       verbose = FALSE,
-#'                                       trim = TRUE),
+#' data(usemmodelfit)
+#'
+#' mdl <- model.summary(model.fit = usemmodelfit,
 #'                      var.number = 3,
 #'                      lag.order = 1)
 #' mdl$beta

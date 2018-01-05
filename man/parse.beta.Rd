@@ -31,13 +31,9 @@ beta.matrix <- parse.beta(var.number = 3,
 beta.matrix
 }
 \donttest{
-model.fit <- uSEM(var.number = 3,
-                 data = simts,
-                 lag.order = 1,
-                 verbose = FALSE,
-                 trim = TRUE)
+data(usemmodelfit)
 beta.matrix <- parse.beta(var.number = 3,
-                         model.fit = model.fit,
+                         model.fit = usemmodelfit,
                          lag.order = 1,
                          matrix = TRUE)
 beta.matrix

@@ -313,8 +313,6 @@ iRAM.boot <- function(model.fit,
 #'
 #' @examples
 #' \dontshow{
-#' # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
-#'
 #' data(usemmodelfit) # evoke the model fit result from simulated time-series
 #'
 #' # bootstrap version of iRAM
@@ -330,8 +328,6 @@ iRAM.boot <- function(model.fit,
 #'boot.iRAM$mean
 #' }
 #' \donttest{
-#' # There are two ways to compute iRAM metric, the point estimation and the bootstrap.
-#'
 #' data(usemmodelfit) # evoke the model fit result from simulated time-series
 #'
 #' # bootstrap version of iRAM

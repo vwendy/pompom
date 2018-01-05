@@ -53,11 +53,9 @@ mdl$rmsea
 mdl$srmr
 }
 \donttest{
-mdl <- model.summary(model.fit = uSEM(var.number = 3,
-                                      data = simts,
-                                      lag.order = 1,
-                                      verbose = FALSE,
-                                      trim = TRUE),
+data(usemmodelfit)
+
+mdl <- model.summary(model.fit = usemmodelfit,
                      var.number = 3,
                      lag.order = 1)
 mdl$beta
