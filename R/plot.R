@@ -13,12 +13,12 @@ W2E <-function(x)   {
 #' @examples
 #' \dontshow{
 #' data(true.beta)
-#'plot_network_graph(beta = true.beta,
+#' plot_network_graph(beta = true.beta,
 #'                   var.number = 3)
 #' }
 #' \donttest
 #' data(true.beta)
-#'plot_network_graph(beta = true.beta,
+#' plot_network_graph(beta = true.beta,
 #'                   var.number = 3)
 #' }
 #'
