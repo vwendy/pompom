@@ -302,7 +302,7 @@ plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 
 #### Check accuracy of iRAM estimation
 
-```{r, warning = FALSE}
+```{r, warning = FALSE, fig.width = 8, fig.height =6}
 true.iRAM <- iRAM(
   model.fit= NULL,
   beta = true.beta, 
