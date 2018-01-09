@@ -193,7 +193,6 @@ plot_network_graph <- function(beta, var.number)
 
   econtemporaneous <- W2E(t(contemporaneous.relations))
   elag1 <- W2E(t(lag.1.relations))
-  # plot.names <-  c("GSR", "HR", "Self-rated Nervousness")
   plot.names <- 1:var.number
 
   # somehow if the the dimension of edge matrix is the same with var.number
