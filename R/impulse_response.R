@@ -313,9 +313,6 @@ iRAM.boot <- function(model.fit,
 #'
 #' @examples
 #' \dontshow{
-#' data(usemmodelfit) # evoke the model fit result from simulated time-series
-#'
-#' # bootstrap version of iRAM
 #' boot.iRAM <- iRAM(model.fit = usemmodelfit,
 #'     beta = NULL,
 #'     var.number = 3,
@@ -328,9 +325,6 @@ iRAM.boot <- function(model.fit,
 #'boot.iRAM$mean
 #' }
 #' \donttest{
-#' data(usemmodelfit) # evoke the model fit result from simulated time-series
-#'
-#' # bootstrap version of iRAM
 #' boot.iRAM <- iRAM(model.fit = usemmodelfit,
 #'     beta = NULL,
 #'     var.number = 3,
@@ -372,7 +366,7 @@ iRAM <- function(model.fit,
     }
     else
     {
-      beta.matrix <- parse.beta(var.number,
+      beta.matrix <- parse_beta(var.number,
                                 model.fit,
                                 lag.order,
                                 matrix = T)

@@ -17,18 +17,14 @@ W2E <-function(x)   {
 #'
 #' @examples
 #' \dontshow{
-#'data(bootstrap.iRAM.2node)
-#'
-#'plot_time_profile(time.series.data = bootstrap.iRAM.2node$time.profile.data,
+#'plot_time_profile(time.series.data = bootstrap_iRAM_2node$time.profile.data,
 #'                  var.number = 2,
 #'                  threshold= .01,
 #'                  xupper = 20)
 #' }
 #'
 #' \donttest{
-#'data(bootstrap.iRAM.2node)
-#'
-#'plot_time_profile(time.series.data = bootstrap.iRAM.2node$time.profile.data,
+#'plot_time_profile(time.series.data = bootstrap_iRAM_2node$time.profile.data,
 #'                  var.number = 2,
 #'                  threshold= .01,
 #'                  xupper = 20)
@@ -109,12 +105,10 @@ plot_time_profile <- function(time.series.data,
 #'
 #' @examples
 #' \dontshow{
-#' data(bootstrap.iRAM)
-#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
+#' plot_iRAM_dist(bootstrap_iRAM_3node$recovery.time.reps)
 #' }
 #' \donttest{
-#' data(bootstrap.iRAM)
-#' plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
+#' plot_iRAM_dist(bootstrap_iRAM_3node$recovery.time.reps)
 #' }
 #'
 #' @export
@@ -171,14 +165,12 @@ plot_iRAM_dist <- function(recovery.time.reps){
 #'
 #' @examples
 #' \dontshow{
-#' data(true.beta)
-#' plot_network_graph(beta = true.beta,
+#' plot_network_graph(beta = true_beta_3node,
 #'                   var.number = 3)
 #' }
 #'
 #' \donttest{
-#' data(true.beta)
-#' plot_network_graph(beta = true.beta,
+#' plot_network_graph(beta = true_beta_3node,
 #'                   var.number = 3)
 #' }
 #'

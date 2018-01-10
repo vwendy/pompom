@@ -1,7 +1,7 @@
 
 #' The true beta matrix (6 by 6) used in simulation.
 #'
-#' @details true.beta <-  matrix(c(0,0,0,0,0,0,
+#' @details true_beta_3node <-  matrix(c(0,0,0,0,0,0,
 #'                       0,0,0,0,0,0,
 #'                       0,0,0,0,0,0,
 #'                       0.2,0,0.25,0,0,0.6,
@@ -15,16 +15,15 @@
 #'
 #' @docType data
 #'
-#' @usage true.beta
+#' @usage true_beta_3node
 #'
 #' @examples
-#' data(true.beta)
 #' \dontshow{
-#'true.beta
+#'true_beta_3node
 #'  }
 #' \donttest{
-#'true.beta
+#'true_beta_3node
 #'  }
 #'
 
-"true.beta"
+"true_beta_3node"

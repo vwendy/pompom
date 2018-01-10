@@ -33,24 +33,19 @@ variables. Model specification and estimation can be found in the references.
 }
 \examples{
 \dontshow{
-## fit a model with simulated time-series of a 2-node network, the true network configuration is
-data(true.beta.2node)
-
-data(simts2node)
-model.fit <- uSEM(var.number = 2,
-                 data = simts2node,
+model.fit <- uSEM(var.number = 3,
+                 data = simts_3node,
                  lag.order = 1,
                  verbose = FALSE,
-                 trim = TRUE)
+                 trim = FALSE)
 model.fit
 }
 \donttest{
-data(simts2node)
-model.fit <- uSEM(var.number = 2,
-                 data = simts2node,
+model.fit <- uSEM(var.number = 3,
+                 data = simts_3node,
                  lag.order = 1,
                  verbose = FALSE,
-                 trim = TRUE)
+                 trim = FALSE)
 model.fit
 }
 

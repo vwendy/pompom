@@ -80,7 +80,7 @@ model.fit <- uSEM(var.number,
 
 
 ## ---- fig.width = 8, fig.height =6---------------------------------------
-beta.matrix <- parse.beta(var.number = p, 
+beta.matrix <- parse_beta(var.number = p, 
                           model.fit = model.fit, 
                           lag.order = 1, 
                           matrix = TRUE) # parse temporal relations in matrix format
@@ -94,7 +94,7 @@ beta.matrix$est
 beta.matrix$se
 
 ## ------------------------------------------------------------------------
-mdl <- model.summary(model.fit, 
+mdl <- model_summary(model.fit, 
                      var.number, 
                      lag.order)
 
@@ -159,7 +159,7 @@ plot_time_profile(bootstrap.iRAM$time.profile.data,
 ## ---- fig.width = 8, fig.height =6, warning = F--------------------------
 plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 
-## ---- warning = FALSE----------------------------------------------------
+## ---- warning = FALSE, fig.width = 8, fig.height =6----------------------
 true.iRAM <- iRAM(
   model.fit= NULL,
   beta = true.beta, 

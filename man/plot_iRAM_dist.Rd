@@ -14,12 +14,10 @@ Plot distribution of recovery time based on bootstrapped version of iRAM
 }
 \examples{
 \dontshow{
-data(bootstrap.iRAM)
-plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
+plot_iRAM_dist(bootstrap_iRAM_3node$recovery.time.reps)
 }
 \donttest{
-data(bootstrap.iRAM)
-plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
+plot_iRAM_dist(bootstrap_iRAM_3node$recovery.time.reps)
 }
 
 }

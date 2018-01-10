@@ -1,7 +1,7 @@
 
 #' The true beta matrix (4 by 4) used in simulation.
 #'
-#' @details true.beta.2node <-  matrix(c(0,0,0,0,
+#' @details true_beta_2node <-  matrix(c(0,0,0,0,
 #'                                 0,0,0,0,
 #'                                0.2,-.4,0,-0.25,
 #'                                0,0.3,-0.2,0),
@@ -13,16 +13,15 @@
 #'
 #' @docType data
 #'
-#' @usage true.beta.2node
+#' @usage true_beta_2node
 #'
 #' @examples
-#' data(true.beta.2node)
 #' \dontshow{
-#'true.beta.2node
+#'true_beta_2node
 #'  }
 #' \donttest{
-#'true.beta.2node
+#'true_beta_2node
 #'  }
 #'
 
-"true.beta.2node"
+"true_beta_2node"

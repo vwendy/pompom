@@ -174,7 +174,7 @@ Now the uSEM model result is in the object "model.fit", including beta matrix, p
 
 
 ```{r, fig.width = 8, fig.height =6}
-beta.matrix <- parse.beta(var.number = p, 
+beta.matrix <- parse_beta(var.number = p, 
                           model.fit = model.fit, 
                           lag.order = 1, 
                           matrix = TRUE) # parse temporal relations in matrix format
@@ -191,10 +191,10 @@ beta.matrix$se
 ```
 
 
-The "model.summary" function will return an object that contains beta, psi and fit statistics, shown in the following code chunks.
+The "model_summary" function will return an object that contains beta, psi and fit statistics, shown in the following code chunks.
 
 ```{r}
-mdl <- model.summary(model.fit, 
+mdl <- model_summary(model.fit, 
                      var.number, 
                      lag.order)
 
@@ -302,7 +302,7 @@ plot_iRAM_dist(bootstrap.iRAM$recovery.time.reps)
 
 #### Check accuracy of iRAM estimation
 
-```{r, warning = FALSE}
+```{r, warning = FALSE, fig.width = 8, fig.height =6}
 true.iRAM <- iRAM(
   model.fit= NULL,
   beta = true.beta, 
